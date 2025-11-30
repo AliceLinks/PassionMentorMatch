@@ -8,24 +8,27 @@ Page({
     stats: { courseCount: 0 }
   },
   onShow() {
-    // 读取用户信息与卡片
-    api.get('/user/profile').then(u => {
-      this.setData({ user: u });
-      wx.setStorageSync('userInfo', u);
-    }).catch(() => {});
-    api.get('/user/cards').then(cards => this.setData({ cards: cards || [] })).catch(() => {});
-
-    // 拉取本周课程作为推荐
-    const monday = this.getWeekStart();
-    api.get('/courses/week', { week_start: monday })
-      .then(res => {
-        const list = (res && res.courses) || [];
-        this.setData({
-          stats: { courseCount: list.length },
-          recommend: list.slice(0, 3) // 取前3条做推荐
-        });
-      })
-      .catch(() => {});
+    const token = wx.getStorageSync('token');
+    if (token) {
+      api.get('/user/profile').then(u => {
+        this.setData({ user: u });
+        wx.setStorageSync('userInfo', u);
+      }).catch(() => {});
+      api.get('/user/cards').then(cards => this.setData({ cards: cards || [] })).catch(() => {});
+      const monday = this.getWeekStart();
+      api.get('/courses/week', { week_start: monday })
+        .then(res => {
+          const list = (res && res.courses) || [];
+          this.setData({
+            stats: { courseCount: list.length },
+            recommend: list.slice(0, 3)
+          });
+        })
+        .catch(() => {});
+    } else {
+      // 未登录时不发起任何请求，展示本地占位
+      this.setData({ recommend: [], stats: { courseCount: 0 } });
+    }
   },
   getWeekStart() {
     const now = new Date();
