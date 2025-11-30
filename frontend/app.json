@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/course/index",           
+    "pages/profile/index",          
+    "pages/my-reservations/index",  
+    "pages/login/index"             
+  ],
+  "window": {
+    "navigationBarTitleText": "Passion街舞社",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f8fa"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#ffffff",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "主页" },
+      { "pagePath": "pages/course/index", "text": "约课" },
+      { "pagePath": "pages/profile/index", "text": "我的" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

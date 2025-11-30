@@ -1,0 +1,15 @@
+<!--pages/my-cards/index.wxml-->
+<view class="container">
+  <view class="section-title">我的导师卡</view>
+  <block wx:for="{{cards}}" wx:key="id">
+    <view class="mentor-card {{item.status}}">
+      <view class="card-type">
+        {{ item.card_type === 'semester' ? '学期卡' : (item.card_type === 'annual' ? '年卡' : '终身卡') }}
+      </view>
+      <view class="card-no">NO. {{item.card_number}}</view>
+      <view class="card-date">有效期 {{item.start_date}} 至 {{item.end_date}}</view>
+      <view class="card-status">{{item.status === 'active' ? '生效中' : '已失效'}}</view>
+    </view>
+  </block>
+  <view wx:if="{{cards.length===0}}" class="empty">暂无导师卡</view>
+</view>

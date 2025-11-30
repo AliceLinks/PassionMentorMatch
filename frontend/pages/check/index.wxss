@@ -1,0 +1,11 @@
+.container .btn {
+  flex: 1;
+}
+.section { background:#fff;border-radius:16rpx;padding:16rpx;box-shadow:0 8rpx 20rpx rgba(0,0,0,0.06);margin-bottom:16rpx; }
+.section-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:12rpx; }
+.map-wrap { border:1rpx solid #e5e7eb;border-radius:12rpx;overflow:hidden; }
+.map { width:100%; height:520rpx; }
+.actions { display:flex;gap:12rpx;margin-top:12rpx; }
+.actions .btn, .actions .btn-secondary { flex:1; }
+.muted { color:#666;margin-top:12rpx; }
+.more-link { color:#07c160; }

@@ -1,0 +1,40 @@
+<view class="container">
+  <!-- 顶部周历 -->
+  <view class="week-header">
+    <block wx:for="{{displayDates}}" wx:key="fullDate">
+      <view class="day-item">
+        <text class="week-day">周{{item.weekDay}}</text>
+        <text class="date-num">{{item.date}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <block wx:for="{{courses}}" wx:key="id">
+      <view class="course-card">
+        <view class="card-left">
+          <view class="time">{{item.start_time}}-{{item.end_time}}</view>
+          <view class="type">{{item.dance_type}}</view>
+        </view>
+        <view class="card-center">
+          <view class="teacher">导师: {{item.teacher}}</view>
+          <view class="capacity">
+            <progress percent="{{(item.current_participants / item.capacity) * 100}}" border-radius="4" stroke-width="6" activeColor="#07c160" />
+            <text>{{item.current_participants}}/{{item.capacity}}</text>
+          </view>
+        </view>
+        <view class="card-right">
+          <button 
+            class="btn {{item.reserved ? 'btn-disabled' : ''}}" 
+            size="mini" 
+            bindtap="{{item.reserved ? '' : 'onBook'}}" 
+            data-id="{{item.id}}">
+            {{item.reserved ? '已约' : '预约'}}
+          </button>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{courses.length === 0}}" class="empty">本周暂无课程安排</view>
+  </view>
+</view>

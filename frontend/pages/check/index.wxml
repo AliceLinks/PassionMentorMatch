@@ -1,0 +1,22 @@
+<view class="container">
+  <view class="section">
+    <view class="section-header">
+      <text>地图打卡</text>
+      <text class="loc-name">{{locationName || (selectedLat && selectedLng ? '已选位置' : '未定位')}}</text>
+    </view>
+    <view class="map-wrap">
+      <map id="map" latitude="{{latitude}}" longitude="{{longitude}}" scale="16" markers="{{markers}}" show-location="true" bindtap="onMapTap" class="map"></map>
+    </view>
+    <view class="actions">
+      <button class="btn" bindtap="onLocate">定位</button>
+      <button class="btn-secondary" bindtap="onPickLocation">选择位置</button>
+      <button class="btn" bindtap="onCheckin">{{checkedIn?'已打卡':'打卡'}}</button>
+      <button class="btn-secondary" bindtap="onShare">分享</button>
+    </view>
+    <view class="muted">选中位置：{{locationName || '未选择'}}</view>
+  </view>
+  <view class="section">
+    <navigator url="/pages/checkins/index" open-type="navigate" class="more-link">我的打卡</navigator>
+    <navigator url="/pages/rank/index" open-type="navigate" class="more-link">查看排行榜</navigator>
+  </view>
+</view>
