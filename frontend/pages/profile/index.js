@@ -15,6 +15,8 @@ Page({
   },
 
   loadData() {
+    const token = wx.getStorageSync('token');
+    if (!token) return; // 未登录不请求
     // 获取用户信息
     api.get('/user/profile').then(res => {
       this.setData({ userInfo: res });

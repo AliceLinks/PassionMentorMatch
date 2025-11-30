@@ -1,7 +1,6 @@
 App({
     onLaunch() {
       this.isLogging = false;
-      this.doLogin();
       const u = wx.getStorageSync('userInfo') || {
         avatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
         nickname: '游客'

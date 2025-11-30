@@ -3,8 +3,8 @@ const app = getApp();
 
 Page({
   data: {
-    weekStart: '', // 本周一日期 YYYY-MM-DD
-    displayDates: [], // 顶部日历显示
+    weekStart: '',
+    displayDates: [],
     courses: [],
     loading: false
   },
@@ -14,13 +14,18 @@ Page({
       this.getTabBar().setData({ selected: 0 });
     }
     this.initWeek();
-    this.fetchCourses();
+    const token = wx.getStorageSync('token');
+    if (token) {
+      this.fetchCourses();
+    } else {
+      this.setData({ courses: [] });
+    }
   },
 
   // 初始化本周日期
   initWeek() {
     const now = new Date();
-    const day = now.getDay() || 7; // 周日为0，改为7
+    const day = now.getDay() || 7; 
     const monday = new Date(now);
     monday.setDate(now.getDate() - day + 1);
     
