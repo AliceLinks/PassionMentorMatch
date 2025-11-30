@@ -56,3 +56,7 @@ build/
 hs_err_pid*
 replay_pid*
 
+#个人配置敏感信息存放，application.yaml用占位符替代
+src/main/resources/application-local.yaml
+src/main/resources/application-*.yaml
+
