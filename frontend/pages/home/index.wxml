@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="hero">
+    <view class="title">Passion 导师课</view>
+    <view class="subtitle">数字化导师卡 · 在线约课与签到</view>
+  </view>
+
+  <view class="grid">
+    <view class="card">
+      <view class="card-body">
+        <view class="row">
+          <text class="label">我的状态</text>
+          <text class="value">{{user.nickname || '游客'}}</text>
+        </view>
+        <view class="row-sub muted">卡片：{{cards.length}} 张 · 本周课程：{{stats.courseCount}} 门</view>
+        <view class="actions">
+          <button class="btn" bindtap="goCourse">立即约课</button>
+          <button class="btn-secondary" bindtap="goProfile">我的中心</button>
+        </view>
+      </view>
+    </view>
+
+    <view class="card">
+      <view class="card-body">
+        <view class="section-title">本周推荐</view>
+        <block wx:for="{{recommend}}" wx:key="id">
+          <view class="rec-item">
+            <view class="left">
+              <view class="rec-title">{{item.dance_type}} · {{item.teacher}}</view>
+              <view class="rec-time muted">{{item.course_date}} {{item.start_time}}-{{item.end_time}}</view>
+            </view>
+            <button class="btn" size="mini" data-id="{{item.id}}" bindtap="onBook">预约</button>
+          </view>
+        </block>
+        <view wx:if="{{recommend.length===0}}" class="muted">暂无推荐课程</view>
+      </view>
+    </view>
+  </view>
+</view>

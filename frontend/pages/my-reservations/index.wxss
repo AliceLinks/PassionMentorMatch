@@ -1,0 +1,10 @@
+/* pages/my-reservations/index.wxss */
+.card { background:#fff;border-radius:12rpx;overflow:hidden;border:1rpx solid #e5e7eb;margin-bottom:16rpx; }
+.card-body { padding:16rpx; display:flex; flex-direction:column; gap:8rpx; }
+.row { display:grid; grid-template-columns: 1fr auto; align-items:center; }
+.course-name { font-size:30rpx;font-weight:600; }
+.status { color:#666; }
+.status.reserved { color:#07c160; }
+.time { color:#666; }
+.actions { margin-top:8rpx; }
+.empty { color:#666; text-align:center; margin-top:24rpx; }
