@@ -14,7 +14,7 @@ spring:
       port: 6379
   sql:
     init:
-      mode: always
+      mode: never  # 临时关闭
       schema-locations: classpath:schema.sql
 
 mybatis-plus:
