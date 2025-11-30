@@ -106,7 +106,7 @@ CREATE TABLE reservations (
 CREATE TABLE checkin_log (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   reservation_id BIGINT NOT NULL,
-  admin_id BIGINT NOT NULL,
+  admin_id BIGINT NULL, -- 允许为 NULL，配合 ON DELETE SET NULL
   method ENUM('scan','manual') DEFAULT 'manual',
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_checkin_reservation FOREIGN KEY (reservation_id) REFERENCES reservations(id) ON DELETE CASCADE,
