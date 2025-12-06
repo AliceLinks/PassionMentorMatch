@@ -1,0 +1,90 @@
+.btn-primary {
+	background-color: #07c160;
+	color: #fff;
+}
+.btn-cancel {
+	background-color: #ff4d4f;
+	color: #fff;
+}
+.btn-disabled {
+	background-color: #c8c8c8;
+	color: #fff;
+}
+.badge-reserved {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #007aff;
+	border-radius: 4px;
+	margin-bottom: 6px;
+}
+.badge-full {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #8a8a8a;
+	border-radius: 4px;
+	margin-bottom: 6px;
+}
+/* pages/course/index.wxss */
+.week-header {
+	display: flex;
+	justify-content: space-between;
+	padding: 8px 12px;
+}
+.day-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 14.28%;
+	padding: 6px 0;
+	border-radius: 6px;
+}
+.day-item.active {
+	background-color: #f0f9f4;
+	border: 1px solid #07c160;
+}
+.week-day {
+	font-size: 12px;
+	color: #666;
+}
+.date-num {
+	font-size: 14px;
+	color: #222;
+	font-weight: 600;
+}
+.course-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px;
+	margin: 8px 12px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.card-header {
+	position: absolute;
+	top: -10px;
+	left: 16px;
+	font-size: 12px;
+	color: #888;
+}
+
+/* 顶部导航按钮区域 */
+.week-nav-top {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 12px 0 12px;
+}
+.nav-btn {
+	background-color: #f5f5f5;
+	color: #333;
+}
+.week-start {
+	font-size: 12px;
+	color: #888;
+}

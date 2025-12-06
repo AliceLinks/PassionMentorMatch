@@ -1,0 +1,15 @@
+<view class="container">
+  <view class="section-title">打卡记录</view>
+  <block wx:for="{{list}}" wx:key="id">
+    <view class="card" style="margin-top:16rpx;">
+      <view class="card-body">
+        <view class="row">
+          <text class="name">{{item.name}}</text>
+          <button class="btn-navigate" size="mini" data-lat="{{item.lat}}" data-lng="{{item.lng}}" bindtap="onNavigate">导航</button>
+        </view>
+        <view class="row-sub muted">{{item.time}}</view>
+      </view>
+    </view>
+  </block>
+  <view wx:if="{{list.length===0}}" style="color:#666;">暂无打卡记录</view>
+</view>

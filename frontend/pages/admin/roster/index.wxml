@@ -1,0 +1,35 @@
+<view class="container">
+  <!-- 顶部卡片：课程选择 -->
+  <view class="card">
+    <view class="card-title">选择课程</view>
+    <picker mode="selector" range="{{courses}}" range-key="label" bindchange="onPickerChange">
+      <view class="picker-row">
+        <text class="label">课程</text>
+        <text class="value">{{(courses[selectedIndex] && courses[selectedIndex].label) || '请选择课程'}}</text>
+      </view>
+    </picker>
+    <button class="btn" bindtap="onQuery">查询预约名单</button>
+  </view>
+
+  <!-- 列表卡片：预约名单 -->
+  <view class="card">
+    <view class="card-title">预约名单</view>
+    <block wx:for="{{list}}" wx:key="reservation_id">
+      <view class="list-item">
+        <view class="list-left">
+          <image class="avatar" src="{{item.user && item.user.avatar ? item.user.avatar : 'https://img.yzcdn.cn/vant/avatar.png'}}" mode="aspectFill" />
+          <view class="info">
+            <view class="title">{{item.user && item.user.nickname ? item.user.nickname : '未命名用户'}}</view>
+            <view class="sub">预约ID：{{item.reservation_id}}</view>
+          </view>
+        </view>
+        <view class="list-right">
+          <view class="badge" wx:if="{{item.status==='reserved'}}">已预约</view>
+          <view class="badge grey" wx:elif="{{item.status==='cancelled'}}">已取消</view>
+          <view class="badge green" wx:if="{{item.checkin_status==='checked_in'}}">已签到</view>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{list.length===0}}" class="empty">暂无预约记录</view>
+  </view>
+</view>

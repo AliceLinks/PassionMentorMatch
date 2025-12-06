@@ -1,0 +1,9 @@
+<!-- 登录页 -->
+<view class="container">
+  <view class="card">
+    <view class="card-body">
+      <view style="margin-bottom:16rpx;">微信授权登录后即可约课与查看导师卡</view>
+      <button class="btn" bindtap="onLogin" loading="{{loading}}">微信登录</button>
+    </view>
+  </view>
+</view>

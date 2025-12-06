@@ -1,0 +1,14 @@
+<view class="container">
+  <view class="section">
+    <view class="section-header"><text>头像与资料</text></view>
+    <view class="profile-edit">
+      <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatarUrl}}" binderror="onAvatarError"></image>
+      </button>
+      <input class="nick-input" placeholder="请输入昵称" value="{{nickname}}" bindinput="onNicknameInput" />
+      <input class="nick-input" placeholder="请输入姓名" value="{{real_name}}" bindinput="onRealNameInput" />
+      <input class="nick-input" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+      <view class="actions"><button class="btn" bindtap="onSave">保存</button></view>
+    </view>
+  </view>
+</view>

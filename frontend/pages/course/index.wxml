@@ -1,0 +1,54 @@
+<view class="container">
+  <!-- 顶部周历 -->
+  <!-- 顶部左上角的周切换按钮 -->
+  <view class="week-nav-top">
+    <button size="mini" class="nav-btn" bindtap="onPrevWeek">上一周</button>
+    <button size="mini" class="nav-btn" bindtap="onNextWeek">下一周</button>
+  </view>
+  <view class="week-header">
+    <block wx:for="{{displayDates}}" wx:key="fullDate">
+      <view class="day-item {{selectedDate === item.fullDate ? 'active' : ''}}" bindtap="onSelectDay" data-date="{{item.fullDate}}">
+        <text class="week-day">周{{item.weekDay}}</text>
+        <text class="date-num">{{item.date}}</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <block wx:for="{{selectedDate ? filteredCourses : courses}}" wx:key="id">
+      <view class="course-card">
+        <view class="card-left">
+          <view class="time">{{item.start_time}}-{{item.end_time}}</view>
+          <view class="type">{{item.dance_type}}</view>
+        </view>
+        <view class="card-center">
+          <view class="teacher">导师: {{item.teacher}}</view>
+          <view class="capacity">
+            <progress percent="{{(item.current_participants / item.capacity) * 100}}" border-radius="4" stroke-width="6" activeColor="#07c160" />
+            <text>{{item.current_participants}}/{{item.capacity}}</text>
+          </view>
+        </view>
+        <view class="card-right">
+            <view wx:if="{{item.reserved}}" class="badge-reserved">已预约</view>
+          <view wx:elif="{{item.current_participants >= item.capacity}}" class="badge-full">已满</view>
+            <block wx:if="{{!item.reserved}}">
+            <button class="btn btn-primary {{item.current_participants >= item.capacity ? 'btn-disabled' : ''}}" 
+                    size="mini" 
+                    bindtap="onBook" 
+                    data-id="{{item.id}}"
+                    disabled="{{item.current_participants >= item.capacity}}">
+              {{item.current_participants >= item.capacity ? '已满' : '预约'}}
+            </button>
+            </block>
+            <block wx:else>
+              <button class="btn btn-cancel" size="mini" bindtap="onCancel" data-id="{{item.reservation_id}}">取消预约</button>
+            </block>
+        </view>
+      </view>
+    </block>
+    <!-- 空态：若选择了日期且该日无课程，显示该日空态；否则显示本周空态 -->
+    <view wx:if="{{selectedDate && filteredCourses.length === 0}}" class="empty">该日暂无课程</view>
+    <view wx:elif="{{!selectedDate && courses.length === 0}}" class="empty">本周暂无课程安排</view>
+  </view>
+</view>

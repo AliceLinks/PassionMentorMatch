@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mentor
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3300/mentor?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true}
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:151421103Lxy}
+    hikari:
+      initializationFailTimeout: 0
+      maximumPoolSize: 10
+      connectionTimeout: 30000
+      validationTimeout: 5000
+  sql:
+    init:
+      mode: ${SQL_INIT_MODE:never}
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:iniData.sql
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+wechat:
+  # 支持通过环境变量覆盖，避免被空环境变量覆盖时取空
+  appid: ${WECHAT_APPID:wxc94d87ddbdbd829a}
+  secret: ${WECHAT_SECRET:8ea079ec73fad23ac13265e9b5bfbe77}
+  insecure: ${WECHAT_SSL_INSECURE:false}
+
+auth:
+  tokenTtlDays: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
