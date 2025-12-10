@@ -22,6 +22,7 @@
       </view>
       <view class="card-actions">
         <button class="btn btn-warn" size="mini" data-id="{{item.id}}" bindtap="onCancel" wx:if="{{item.status !== 'cancelled'}}">取消课程</button>
+        <button class="btn btn-primary" size="mini" data-id="{{item.id}}" bindtap="onRoster">预约名单</button>
         <button class="btn" size="mini" data-id="{{item.id}}" bindtap="onEdit">编辑信息</button>
       </view>
     </view>

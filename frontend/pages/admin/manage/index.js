@@ -52,4 +52,10 @@ Page({
     const id = e.currentTarget.dataset.id;
     wx.navigateTo({ url: `/pages/admin/manageEdit/index?id=${id}` });
   }
+  ,
+  onRoster(e){
+    const id = e.currentTarget.dataset.id;
+    if(!id){ wx.showToast({ title:'缺少课程ID', icon:'none' }); return; }
+    wx.navigateTo({ url: `/pages/admin/roster/index?courseId=${id}` });
+  }
 });

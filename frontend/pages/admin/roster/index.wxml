@@ -1,6 +1,6 @@
 <view class="container">
   <!-- 顶部卡片：课程选择 -->
-  <view class="card">
+  <view class="card" wx:if="{{!desiredCourseId}}">
     <view class="card-title">选择课程</view>
     <picker mode="selector" range="{{courses}}" range-key="label" bindchange="onPickerChange">
       <view class="picker-row">

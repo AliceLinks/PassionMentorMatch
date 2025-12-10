@@ -9,7 +9,9 @@ import com.example.mentor.dao.mapper.ReservationMapper;
 import com.example.mentor.dto.Result;
 import com.example.mentor.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/courses")
 @RequiredArgsConstructor
+@Slf4j
 public class CourseController {
 
     private final CourseMapper courseMapper;
@@ -194,6 +197,7 @@ public class CourseController {
 
     // 管理员取消课程
     @PostMapping("/{id}/cancel")
+    @Transactional
     public Result<?> cancelCourse(@PathVariable("id") Long id) {
         try {
             if (id == null) {
@@ -207,14 +211,23 @@ public class CourseController {
                 return Result.buildSuccess(Collections.singletonMap("message", "课程已是取消状态"));
             }
             c.setStatus("cancelled");
-            courseMapper.updateById(c);
+            int updated = courseMapper.updateById(c);
 
             // 同步更新该课程的预约为取消状态（仅更新状态字段，避免覆盖其它字段为null）
             com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<Reservation> uw = new com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper<>();
             uw.eq("course_id", id).eq("status", "reserved").set("status", "cancelled");
-            reservationMapper.update(null, uw);
+            int resUpdated = reservationMapper.update(null, uw);
 
-            return Result.buildSuccess(Collections.singletonMap("message", "已取消课程并取消相关预约"));
+            // 返回更新后的课程以供前端确认
+            Course updatedCourse = courseMapper.selectById(id);
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("message", "已取消课程并取消相关预约");
+            resp.put("updatedRows", updated);
+            resp.put("updatedReservations", resUpdated);
+            resp.put("course", updatedCourse);
+            // 记录变更以便排查
+            log.info("cancelCourse result: id={}, updatedRows={}, updatedReservations={}, course={}", id, updated, resUpdated, updatedCourse);
+            return Result.buildSuccess(resp);
         } catch (Exception e) {
             return Result.buildFailure(500, "取消失败: " + e.getMessage());
         }
@@ -222,6 +235,7 @@ public class CourseController {
 
     // 管理员编辑课程信息（部分字段可更新）
     @PutMapping("/{id}")
+    @Transactional
     public Result<?> editCourse(@PathVariable("id") Long id, @RequestBody Map<String, Object> body) {
         if (id == null) return Result.buildFailure(400, "课程ID不能为空");
         Course c = courseMapper.selectById(id);
@@ -248,8 +262,15 @@ public class CourseController {
             if (c.getStartTime()!=null && c.getEndTime()!=null && c.getStartTime().after(c.getEndTime())) {
                 return Result.buildFailure(400, "结束时间必须晚于开始时间");
             }
-            courseMapper.updateById(c);
-            return Result.buildSuccess(Collections.singletonMap("message", "课程已更新"));
+            int updated = courseMapper.updateById(c);
+            Course updatedCourse = courseMapper.selectById(id);
+            Map<String, Object> resp = new HashMap<>();
+            resp.put("message", "课程已更新");
+            resp.put("updatedRows", updated);
+            resp.put("course", updatedCourse);
+            // 记录变更以便排查
+            log.info("editCourse result: id={}, updatedRows={}, course={}", id, updated, updatedCourse);
+            return Result.buildSuccess(resp);
         } catch (Exception e) {
             return Result.buildFailure(400, "参数错误: "+e.getMessage());
         }

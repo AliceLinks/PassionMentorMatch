@@ -1,5 +1,10 @@
 Page({
-  data:{ courseId:'', list:[], courses:[], selectedIndex:0, weekStart:'' },
+  data:{ courseId:'', list:[], courses:[], selectedIndex:0, weekStart:'', desiredCourseId: null },
+  onLoad(options){
+    if(options && options.courseId){
+      this.setData({ desiredCourseId: String(options.courseId) });
+    }
+  },
   onShow(){
     const token = wx.getStorageSync('ADMIN_TOKEN');
     if(!token){
@@ -36,7 +41,15 @@ Page({
             label: `${c.course_date} ${c.start_time?.slice(0,5) || ''} ${c.teacher || ''}（${c.dance_type || ''}）`
           }));
           this.setData({ courses: arr });
-          if(arr.length){ this.setData({ courseId: arr[0].id, selectedIndex: 0 }); }
+          if(arr.length){
+            // 如果跳转时传入 desiredCourseId，则优先选择并自动查询
+            const desired = this.data.desiredCourseId;
+            if(desired){
+              const idx = arr.findIndex(x => String(x.id) === String(desired));
+              if(idx >= 0){ this.setData({ courseId: arr[idx].id, selectedIndex: idx }); this.onQuery(); return; }
+            }
+            this.setData({ courseId: arr[0].id, selectedIndex: 0 });
+          }
         } else { wx.showToast({ title: (res.data && res.data.message) || '获取课程失败', icon:'none' }); }
       },
       fail: () => wx.showToast({ title:'网络错误', icon:'none' })

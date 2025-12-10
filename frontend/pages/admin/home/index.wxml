@@ -15,11 +15,7 @@
       <view class="card-title">批量发布课程</view>
       <view class="card-sub">创建并发布一周课程</view>
     </view>
-    <view class="card" bindtap="goRoster">
-      <view class="card-icon">📋</view>
-      <view class="card-title">预约名单查看</view>
-      <view class="card-sub">按课程查看预约列表</view>
-    </view>
+    <!-- 预约名单入口已移至课程管理详情页 -->
     <view class="card" bindtap="goCheckin">
       <view class="card-icon">✅</view>
       <view class="card-title">签到核销</view>

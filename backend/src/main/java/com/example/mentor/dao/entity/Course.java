@@ -1,6 +1,7 @@
 package com.example.mentor.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class Course {
 
     private String status;
 
-    @TableField("week_number")
+    @TableField(value = "week_number", insertStrategy = FieldStrategy.NEVER, updateStrategy = FieldStrategy.NEVER)
     private Integer weekNumber;
 
     @TableField("created_at")
