@@ -1,3 +1,5 @@
+@TableField("face_image_url")
+    private String faceImageUrl;
 package com.example.mentor.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;

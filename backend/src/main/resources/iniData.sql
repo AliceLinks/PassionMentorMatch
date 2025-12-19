@@ -3,6 +3,13 @@ SET NAMES utf8mb4;
 -- 如果你的 MySQL 客户端已选择数据库，可移除下一行
 USE mentor;
 
+-- 管理员账号（幂等）
+-- 默认密码：admin123，MD5 加密
+INSERT IGNORE INTO admins (username, password_hash, role, status)
+VALUES 
+  ('admin', '0192023a7bbd73250516f069df18b500', 'admin', 'active'),
+  ('admin2', '0192023a7bbd73250516f069df18b500', 'admin', 'active');
+
 -- 用户（幂等）
 INSERT IGNORE INTO users (openid, nickname, avatar, status)
 VALUES 
