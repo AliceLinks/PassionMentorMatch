@@ -32,10 +32,22 @@ CREATE TABLE admins (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(64) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  role ENUM('operator','admin','superadmin') DEFAULT 'operator',
+  role VARCHAR(32) DEFAULT 'admin',
   status ENUM('active','disabled') DEFAULT 'active',
   last_login DATETIME,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 管理员登录持久化 Token
+CREATE TABLE admin_token (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  admin_id BIGINT NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  expired_at DATETIME NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_admin_token (token),
+  INDEX idx_admin_id (admin_id),
+  CONSTRAINT fk_admin_token_admin FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 用户登录持久化 Token
@@ -56,6 +68,7 @@ CREATE TABLE cards (
   user_id BIGINT NULL,
   card_number VARCHAR(64) UNIQUE NOT NULL,
   card_type ENUM('semester','annual','lifetime') NOT NULL,
+  face_image_url VARCHAR(255),
   status ENUM('active','inactive','revoked') DEFAULT 'active',
   start_date DATE,
   end_date DATE,
