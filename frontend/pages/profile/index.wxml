@@ -1,11 +1,14 @@
 <view class="container">
-  <view class="user-card" bindtap="handleLogin">
-    <image class="avatar" src="{{userInfo.avatar || 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'}}" />
-    <view class="info">
-      <view class="nickname">{{userInfo.nickname || '点击登录'}}</view>
-      <view class="status" wx:if="{{userInfo}}">状态: {{userInfo.status}}</view>
+    <view class="profile-header">
+        <view class="profile-card">
+        <image src="{{user.avatar}}" class="avatar" />
+        <view class="info">
+            <view class="name">{{user.nickname}}</view>
+            <view class="meta">积分 {{user.points}} · 等级 {{user.level}}</view>
+        </view>
+        <button class="btn" size="mini" bindtap="goEdit">修改资料</button>
+        </view>
     </view>
-  </view>
 
   <view class="section-title">我的导师卡</view>
   <view class="cards-container">

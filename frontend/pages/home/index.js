@@ -8,6 +8,9 @@ Page({
     stats: { courseCount: 0 }
   },
   onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 });
+    }
     const token = wx.getStorageSync('token');
     if (token) {
       api.get('/user/profile').then(u => {

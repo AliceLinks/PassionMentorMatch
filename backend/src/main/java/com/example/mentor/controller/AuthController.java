@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -26,8 +28,28 @@ public class AuthController {
 
     // GET /api/user/profile
     @GetMapping("/profile")
-    public ResponseEntity<Result<?>> getUserInfo(@RequestHeader(value = "Authorization", required = false) String authorization) {
-        String token = (authorization != null && authorization.startsWith("Bearer ")) ? authorization.substring(7) : authorization;
+    public ResponseEntity<Result<?>> getUserInfo(
+            @RequestHeader(value = "Authorization", required = false) String authorization,
+            @RequestParam(value = "token", required = false) String tokenParam,
+            HttpServletRequest request
+    ) {
+        // 优先 Bearer
+        String token = (authorization != null && authorization.startsWith("Bearer "))
+                ? authorization.substring(7)
+                : null;
+        // 兜底：query 参数
+        if (token == null || token.isEmpty()) {
+            token = tokenParam;
+        }
+        // 兜底：Cookie
+        if ((token == null || token.isEmpty()) && request.getCookies() != null) {
+            for (var c : request.getCookies()) {
+                if ("token".equals(c.getName())) {
+                    token = c.getValue();
+                    break;
+                }
+            }
+        }
         return ResponseEntity.ok(Result.buildSuccess(authService.getUserInfoByToken(token)));
     }
 }

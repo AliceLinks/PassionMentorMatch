@@ -39,14 +39,13 @@ App({
                   console.log('Token已获取并存储:', token);
                   resolve(token);
                 } else {
-                  // 后端 msg 或默认信息
-                  const msg = (data && data.msg) || '登录失败';
-                  // 如果第一次失败且还未重试，自动重试一次
-                  if (!retryFlag) {
+                  const msg = (data && (data.message || data.msg)) || (statusCode === 401 ? '登录接口未放开匿名访问(401)' : '登录失败');
+                  if (!retryFlag && statusCode !== 401) {
                     console.warn('登录失败，尝试自动重试一次:', msg);
                     this.isLogging = false;
                     this.doLogin(true).then(resolve).catch(reject);
                   } else {
+                    wx.showToast({ title: msg, icon: 'none' });
                     reject(msg);
                   }
                 }
