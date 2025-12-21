@@ -32,11 +32,13 @@ CREATE TABLE users (
 CREATE TABLE admins (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(64) UNIQUE NOT NULL,
+  phone VARCHAR(32) UNIQUE,         
   password_hash VARCHAR(255) NOT NULL,
   role VARCHAR(32) DEFAULT 'admin',
   status ENUM('active','disabled') DEFAULT 'active',
   last_login DATETIME,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_admin_phone (phone)     -- 可选：按手机号登录的索引
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- 管理员登录持久化 Token

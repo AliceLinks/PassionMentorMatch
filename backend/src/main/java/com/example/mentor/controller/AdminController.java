@@ -35,10 +35,10 @@ public class AdminController {
     @PostMapping("/login")
     public Result<Map<String, Object>> login(@RequestBody Map<String, String> body) {
         try {
-            String username = body.getOrDefault("username", "");
+            String phone = body.getOrDefault("phone", "");
             String password = body.getOrDefault("password", "");
 
-            String token = adminAuthService.login(username, password);
+            String token = adminAuthService.login(phone, password); 
             Admin admin = adminAuthService.getAdminByToken(token);
 
             Map<String, Object> data = new HashMap<>();

@@ -16,6 +16,9 @@ public class Admin {
 
     private String username;
 
+    @TableField("phone")
+    private String phone;   
+
     @TableField("password_hash")
     private String passwordHash;
 
