@@ -1,10 +1,11 @@
 {
   "pages": [
     "pages/home/index",
-    "pages/course/index",           
-    "pages/profile/index",          
-    "pages/my-reservations/index",  
-    "pages/login/index"             
+    "pages/course/index",
+    "pages/profile/index",
+    "pages/profile/edit",
+    "pages/my-reservations/index",
+    "pages/login/index"
   ],
   "window": {
     "navigationBarTitleText": "Passion街舞社",

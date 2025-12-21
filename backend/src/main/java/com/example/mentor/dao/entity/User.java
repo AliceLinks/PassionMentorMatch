@@ -22,6 +22,9 @@ public class User extends BaseDO {
     @TableField("real_name")
     private String realName;
 
+    @TableField("password_hash")
+    private String passwordHash;   //密码哈希
+
     private String phone;
 
     private String avatar;

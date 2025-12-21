@@ -13,12 +13,13 @@ DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS user_token;
 DROP TABLE IF EXISTS users;
 
--- 用户表（微信用户）
+-- 用户表（支持微信openid 和 手机号+密码）
 CREATE TABLE users (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  openid VARCHAR(128) UNIQUE NOT NULL,
+  openid VARCHAR(128) UNIQUE,  -- 微信openid，可为空；手机号注册的用户为 NULL
   nickname VARCHAR(64),
   real_name VARCHAR(64),
+  password_hash VARCHAR(255),  -- 密码哈希
   phone VARCHAR(32),
   avatar VARCHAR(255),
   status ENUM('active','disabled') DEFAULT 'active',

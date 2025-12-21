@@ -13,10 +13,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-
+import org.springframework.util.DigestUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.UUID;
@@ -68,19 +69,7 @@ public class AuthServiceImpl implements AuthService {
             userMapper.insert(user);
         }
 
-        String token = UUID.randomUUID().toString().replace("-", "");
-        Date expireAt = Date.from(Instant.now().plus(authProps.getTokenTtlDays(), ChronoUnit.DAYS));
-
-        // 单用户只保留一个有效 token
-        userTokenMapper.delete(new LambdaQueryWrapper<UserToken>().eq(UserToken::getUserId, user.getId()));
-
-        UserToken ut = new UserToken();
-        ut.setUserId(user.getId());
-        ut.setToken(token);
-        ut.setExpireAt(expireAt);
-        userTokenMapper.insert(ut);
-
-        return token;
+        return generateTokenForUser(user);
     }
 
     @Override
@@ -88,10 +77,77 @@ public class AuthServiceImpl implements AuthService {
         if (!StringUtils.hasText(token)) {
             throw new IllegalArgumentException("未提供token");
         }
-        UserToken ut = userTokenMapper.selectOne(new LambdaQueryWrapper<UserToken>().eq(UserToken::getToken, token));
+        UserToken ut = userTokenMapper.selectOne(
+                new LambdaQueryWrapper<UserToken>().eq(UserToken::getToken, token));
         if (ut == null || ut.getExpireAt().before(new Date())) {
             throw new RuntimeException("登录失效");
         }
         return userMapper.selectById(ut.getUserId());
+    }
+
+    @Override
+    public String registerByPhone(String phone, String password) {
+        if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
+            throw new IllegalArgumentException("手机号和密码不能为空");
+        }
+
+        User exists = userMapper.selectOne(
+                new LambdaQueryWrapper<User>().eq(User::getPhone, phone));
+        if (exists != null) {
+            throw new IllegalArgumentException("手机号已注册");
+        }
+
+        User user = new User();
+        user.setPhone(phone);
+        user.setStatus("active");
+        // 简单 MD5（与管理员一致）；可换成更安全算法
+        String passwordHash = DigestUtils.md5DigestAsHex(password.getBytes());
+        user.setPasswordHash(passwordHash);
+        userMapper.insert(user);
+
+        return generateTokenForUser(user);
+    }
+
+    @Override
+    public String loginByPhone(String phone, String password) {
+        if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
+            throw new IllegalArgumentException("手机号和密码不能为空");
+        }
+
+        User user = userMapper.selectOne(
+                new LambdaQueryWrapper<User>().eq(User::getPhone, phone));
+        if (user == null) {
+            throw new IllegalArgumentException("用户名或密码错误");
+        }
+        if (!"active".equals(user.getStatus())) {
+            throw new IllegalArgumentException("账号被禁用");
+        }
+
+        String passwordHash = DigestUtils.md5DigestAsHex(password.getBytes());
+        if (user.getPasswordHash() == null || !passwordHash.equals(user.getPasswordHash())) {
+            throw new IllegalArgumentException("用户名或密码错误");
+        }
+
+        return generateTokenForUser(user);
+    }
+
+    /** 统一的 token 生成与持久化逻辑 */
+    private String generateTokenForUser(User user) {
+        String token = UUID.randomUUID().toString().replace("-", "");
+        Date expireAt = Date.from(
+                Instant.now().plus(authProps.getTokenTtlDays(), ChronoUnit.DAYS));
+
+        // 清理旧 token
+        userTokenMapper.delete(
+                new LambdaQueryWrapper<UserToken>().eq(UserToken::getUserId, user.getId()));
+
+        UserToken ut = new UserToken();
+        ut.setUserId(user.getId());
+        ut.setToken(token);
+        ut.setExpireAt(expireAt);
+        ut.setCreatedAt(LocalDateTime.now());
+        userTokenMapper.insert(ut);
+
+        return token;
     }
 }

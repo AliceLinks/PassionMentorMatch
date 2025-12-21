@@ -1,9 +1,58 @@
-<!-- 登录页 -->
-<view class="container">
+<!-- 登录 / 注册页 -->
+<view class="page">
+  <!-- 顶部装饰背景 -->
+  <view class="header-bg"></view>
+
   <view class="card">
-    <view class="card-body">
-      <view style="margin-bottom:16rpx;">微信授权登录后即可约课与查看导师卡</view>
-      <button class="btn" bindtap="onLogin" loading="{{loading}}">微信登录</button>
+    <!-- 头像 / Logo 区 -->
+    <view class="logo-wrap">
+      <image class="logo" src="https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0" mode="aspectFill" />
+    </view>
+
+    <!-- 标题 -->
+    <view class="title">
+      南京大学 Passion 街舞社
+    </view>
+    <view class="subtitle">
+      导师课预约 · 学员登录
+    </view>
+
+    <!-- 表单区域 -->
+    <view class="form">
+      <view class="field">
+        <view class="field-label">手机号</view>
+        <input class="field-input"
+               placeholder="请输入手机号"
+               type="number"
+               maxlength="11"
+               bindinput="onPhoneInput" />
+      </view>
+
+      <view class="field">
+        <view class="field-label">密码</view>
+        <input class="field-input"
+               placeholder="请输入密码"
+               password="true"
+               bindinput="onPasswordInput" />
+      </view>
+
+      <button class="primary-btn"
+              loading="{{loading}}"
+              disabled="{{loading}}"
+              bindtap="onSubmit">
+        {{ isRegisterMode ? '注册并登录' : '登录' }}
+      </button>
+
+      <view class="switch-row" bindtap="toggleMode">
+        <text class="switch-text">
+          {{ isRegisterMode ? '已有账号？点击这里去登录' : '没有账号？点击这里先注册' }}
+        </text>
+      </view>
+    </view>
+
+    <!-- 底部提示 -->
+    <view class="footer-tip">
+      登录即表示你同意本系统的使用规范
     </view>
   </view>
 </view>

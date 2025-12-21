@@ -23,8 +23,8 @@ mybatis-plus:
 
 
 wechat:
-  appid: ${WECHAT_APPID:}
-  secret: ${WECHAT_SECRET:}
+  appid: wxd02e1d1b6906efbd
+  secret: 1fd29bea30b711cdbbc5b88316a2b954
 
 auth:
   tokenTtlDays: 30

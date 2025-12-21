@@ -3,8 +3,8 @@ package com.example.mentor.dto.request;
 import lombok.Data;
 
 @Data
-public class LoginRequest {
-    // 手机号+密码登录
+public class UpdateProfileRequest {
+    private String realName;
     private String phone;
-    private String password;
+    private String avatar;
 }

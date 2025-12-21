@@ -1,16 +1,16 @@
 package com.example.mentor.config;
 
 import com.example.mentor.dto.Result;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.mentor.security.TokenAuthenticationFilter;
 import com.example.mentor.service.AuthService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.nio.charset.StandardCharsets;
@@ -32,34 +32,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(
-            HttpSecurity http,
-            AuthenticationEntryPoint entryPoint,
-            AuthService authService) throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,
+                                                   AuthenticationEntryPoint jsonAuthenticationEntryPoint,
+                                                   AuthService authService) throws Exception {
         http
-            // 关闭 CSRF（后端 API）
             .csrf(csrf -> csrf.disable())
-            // 关闭默认的 HTTP Basic
-            .httpBasic(basic -> basic.disable())
-            // 显式关闭表单登录
-            .formLogin(form -> form.disable())
-            // 关闭默认登出入口，避免误拦截
-            .logout(logout -> logout.disable())
-            // 使用无状态会话
-            .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // 权限规则
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/user/login").permitAll()
-                // 公开课程周列表（如果需要匿名访问）
-                .requestMatchers("/api/courses/week").permitAll()
-                .anyRequest().authenticated()
+                    // 放行用户注册与登录接口（匿名访问）
+                    .requestMatchers(HttpMethod.POST, "/api/user/register", "/api/user/login").permitAll()
+                    // 其它 /api/** 需要登录
+                    .requestMatchers("/api/**").authenticated()
+                    // 其余静态资源等全部放行
+                    .anyRequest().permitAll()
             )
-            // 未认证返回自定义 JSON（不带 Basic 挑战）
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(entryPoint));
-
-        // 注册 Token 过滤器
-        http.addFilterBefore(new TokenAuthenticationFilter(authService), UsernamePasswordAuthenticationFilter.class);
+            //把 TokenAuthenticationFilter 挂到 UsernamePasswordAuthenticationFilter 之前
+            .addFilterBefore(new TokenAuthenticationFilter(authService),
+                    UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling(e -> e.authenticationEntryPoint(jsonAuthenticationEntryPoint));
 
         return http.build();
     }
