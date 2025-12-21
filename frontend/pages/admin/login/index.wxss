@@ -1,0 +1,208 @@
+.page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  padding: 80rpx 40rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.bg-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 360rpx;
+  background: linear-gradient(135deg, #07c160, #32c5ff);
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  margin-bottom: 40rpx;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.8);
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  margin-top: 20rpx;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 32rpx;
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.05);
+}
+
+.form-item + .form-item {
+  margin-top: 28rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #333333;
+  margin-bottom: 12rpx;
+}
+
+.input {
+  height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background-color: #f5f6fa;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #bbbbbb;
+}
+
+.primary-btn {
+  margin-top: 40rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #07c160, #06ae56);
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.primary-btn[disabled] {
+  opacity: 0.7;
+}
+
+.tip {
+  margin-top: 24rpx;
+  font-size: 22rpx;
+  color: #999999;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* 保存后重新编译小程序即可看到更美观的管理员登录页效果。// filepath: frontend/pages/admin/login/index.wxss
+.page {
+  position: relative;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+  padding: 80rpx 40rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.bg-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 360rpx;
+  background: linear-gradient(135deg, #07c160, #32c5ff);
+  z-index: 0;
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+  margin-bottom: 40rpx;
+}
+
+.logo {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.8);
+  margin-bottom: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  opacity: 0.8;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  margin-top: 20rpx;
+  background-color: #ffffff;
+  border-radius: 24rpx;
+  padding: 40rpx 32rpx 32rpx;
+  box-shadow: 0 12rpx 40rpx rgba(0, 0, 0, 0.05);
+}
+
+.form-item + .form-item {
+  margin-top: 28rpx;
+}
+
+.label {
+  font-size: 26rpx;
+  color: #333333;
+  margin-bottom: 12rpx;
+}
+
+.input {
+  height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background-color: #f5f6fa;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.input::placeholder {
+  color: #bbbbbb;
+}
+
+.primary-btn {
+  margin-top: 40rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #07c160, #06ae56);
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.primary-btn[disabled] {
+  opacity: 0.7;
+}
+
+.tip {
+  margin-top: 24rpx;
+  font-size: 22rpx;
+  color: #999999;
+  text-align: center;
+  line-height: 1.6;
+} */

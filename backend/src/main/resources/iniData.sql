@@ -7,8 +7,8 @@ USE mentor;
 -- 默认密码：admin123，MD5 加密
 INSERT IGNORE INTO admins (username, phone, password_hash, role, status)
 VALUES 
-  ('admin',  '13800000001', '0192023a7bbd73250516f069df18b500', 'admin', 'active'),
-  ('admin2', '13800000002', '0192023a7bbd73250516f069df18b500', 'admin', 'active');
+  ('admin',  '13000000001', '0192023a7bbd73250516f069df18b500', 'admin', 'active'),
+  ('admin2', '13000000002', '0192023a7bbd73250516f069df18b500', 'admin', 'active');
 
 -- 用户（幂等）
 INSERT IGNORE INTO users (openid, nickname, avatar, status)

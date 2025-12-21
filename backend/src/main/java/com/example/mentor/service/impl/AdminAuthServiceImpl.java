@@ -29,18 +29,19 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     private final AuthProperties authProperties;
 
     @Override
-    public String login(String username, String password) {
-        if (!StringUtils.hasText(username) || !StringUtils.hasText(password)) {
-            throw new BizException(400, "用户名或密码不能为空");
+    public String login(String phone, String password) {
+        // 这里的 username 参数实际就是「手机号」
+        if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
+            throw new BizException(400, "手机号或密码不能为空");
         }
 
-        // 查询管理员
+        // 按手机号匹配管理员
         Admin admin = adminMapper.selectOne(
                 new LambdaQueryWrapper<Admin>()
-                        .eq(Admin::getUsername, username));
+                        .eq(Admin::getPhone, phone));
 
         if (admin == null) {
-            throw new BizException(401, "用户名或密码错误");
+            throw new BizException(401, "手机号或密码错误");
         }
 
         // 检查状态
@@ -48,22 +49,20 @@ public class AdminAuthServiceImpl implements AdminAuthService {
             throw new BizException(403, "账号已被禁用");
         }
 
-        // 验证密码（MD5加密）
+        // 验证密码（MD5）
         String passwordHash = DigestUtils.md5DigestAsHex(password.getBytes());
         if (!passwordHash.equals(admin.getPasswordHash())) {
-            throw new BizException(401, "用户名或密码错误");
+            throw new BizException(401, "手机号或密码错误");
         }
 
-        // 生成token
+        // 生成 token
         String token = UUID.randomUUID().toString().replace("-", "");
         Date expireAt = Date.from(Instant.now().plus(authProperties.getTokenTtlDays(), ChronoUnit.DAYS));
 
-        // 删除旧token
         adminTokenMapper.delete(
                 new LambdaQueryWrapper<AdminToken>()
                         .eq(AdminToken::getAdminId, admin.getId()));
 
-        // 保存新token
         AdminToken adminToken = new AdminToken();
         adminToken.setAdminId(admin.getId());
         adminToken.setToken(token);
@@ -71,11 +70,11 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         adminToken.setCreatedAt(new Date());
         adminTokenMapper.insert(adminToken);
 
-        // 更新最后登录时间
         admin.setLastLogin(new Date());
         adminMapper.updateById(admin);
 
-        log.info("管理员登录成功: username={}, role={}", username, admin.getRole());
+        // 日志里也用手机号
+        log.info("管理员登录成功: phone={}, role={}", phone, admin.getRole());
         return token;
     }
 

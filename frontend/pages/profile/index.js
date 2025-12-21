@@ -83,7 +83,7 @@ Page({
   },
 
   goAdmin() {
-    wx.showToast({ title: '仅管理员使用', icon: 'none' });
+    wx.navigateTo({ url: '/pages/admin/login/index' });
   },
 
   // 退出登录（可选加一个）

@@ -39,7 +39,11 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                     // 放行用户注册与登录接口（匿名访问）
-                    .requestMatchers(HttpMethod.POST, "/api/user/register", "/api/user/login").permitAll()
+                    .requestMatchers(HttpMethod.POST,
+                            "/api/user/register",
+                            "/api/user/login",
+                            "/api/admin/login"   
+                    ).permitAll()
                     // 其它 /api/** 需要登录
                     .requestMatchers("/api/**").authenticated()
                     // 其余静态资源等全部放行

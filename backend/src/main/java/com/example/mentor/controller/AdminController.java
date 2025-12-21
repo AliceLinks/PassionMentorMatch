@@ -37,7 +37,6 @@ public class AdminController {
         try {
             String phone = body.getOrDefault("phone", "");
             String password = body.getOrDefault("password", "");
-
             String token = adminAuthService.login(phone, password); 
             Admin admin = adminAuthService.getAdminByToken(token);
 

@@ -6,7 +6,7 @@ public interface AdminAuthService {
     /**
      * 管理员登录
      * 
-     * @param username 用户名
+     * @param username 手机号   
      * @param password 密码
      * @return token
      */
