@@ -5,17 +5,19 @@ spring:
   application:
     name: mentor
   datasource:
-    url: jdbc:mysql://localhost:3306/mentor?characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://127.0.0.1:3306/mentor?characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: 123456
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
+    hikari:
+        initializationFailTimeout: 0
+        maximumPoolSize: 10
+        connectionTimeout: 30000
+        validationTimeout: 5000
   sql:
     init:
       mode: never  # 临时关闭
       schema-locations: classpath:schema.sql
+      data-locations: classpath:iniData.sql
 
 mybatis-plus:
   configuration:
@@ -28,4 +30,15 @@ wechat:
 
 auth:
   tokenTtlDays: 30
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
   

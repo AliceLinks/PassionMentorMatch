@@ -94,6 +94,9 @@ public class AuthController {
             if (StringUtils.hasText(body.getAvatar())) {
                 user.setAvatar(body.getAvatar());
             }
+            if (StringUtils.hasText(body.getNickname())) {  
+                user.setNickname(body.getNickname());
+            }
 
             userMapper.updateById(user);
             return ResponseEntity.ok(Result.buildSuccess(user));

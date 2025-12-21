@@ -7,6 +7,9 @@
       <view class="sub" wx:if="{{userInfo && userInfo.phone}}">
         手机号：{{ userInfo.phone }}
       </view>
+      <view class="sub" wx:if="{{userInfo && userInfo.realName}}">
+        姓名：{{ userInfo.realName }}
+      </view>
       <view class="sub" wx:else>
         欢迎来到 Passion 导师课系统
       </view>
@@ -52,3 +55,150 @@
     </view>
   </view>
 </view>
+
+<script>
+  Page({
+    data: {
+      defaultAvatarUrl: '/images/default-avatar.png',
+      avatarUrl: '',
+      nickname: '游客',
+      real_name: '',
+      phone: ''
+    },
+
+    onLoad() {
+      const u = wx.getStorageSync('userInfo');
+      if (u) {
+        this.setData({
+          avatarUrl: u.avatar || this.data.defaultAvatarUrl,
+          nickname: u.nickname || '游客',
+          real_name: u.realName || '',
+          phone: u.phone || ''
+        });
+      }
+    },
+
+    handleLogin() {
+      // 登录逻辑
+    },
+
+    goEdit() {
+      wx.navigateTo({
+        url: '/pages/edit/edit'
+      });
+    },
+
+    goCards() {
+      wx.navigateTo({
+        url: '/pages/cards/cards'
+      });
+    },
+
+    goReservations() {
+      wx.navigateTo({
+        url: '/pages/reservations/reservations'
+      });
+    },
+
+    goAdmin() {
+      wx.navigateTo({
+        url: '/pages/admin/admin'
+      });
+    },
+
+    logout() {
+      // 退出逻辑
+    }
+  });
+</script>
+
+<style>
+  .page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #f8f8f8;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    margin-right: 16px;
+  }
+
+  .info {
+    flex: 1;
+  }
+
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .sub {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .status {
+    font-size: 12px;
+    color: #4caf50;
+  }
+
+  .status.guest {
+    color: #f44336;
+  }
+
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    margin: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+
+  .primary-btn {
+    background-color: #007aff;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .arrow {
+    font-size: 18px;
+    color: #007aff;
+  }
+
+  .logout {
+    color: #f44336;
+  }
+</style>

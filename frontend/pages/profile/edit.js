@@ -14,7 +14,7 @@ Page({
       this.setData({
         avatarUrl: u.avatar || this.data.defaultAvatarUrl,
         nickname: u.nickname || '游客',
-        real_name: u.real_name || '',
+        real_name: u.realName || '',
         phone: u.phone || ''
       });
     }
@@ -30,7 +30,7 @@ Page({
     const payload = {
       avatar: this.data.avatarUrl,
       nickname: this.data.nickname || '游客',
-      real_name: this.data.real_name || null,
+      realName: this.data.real_name || null,
       phone: this.data.phone || null
     };
     api.put('/user/profile', payload)

@@ -50,7 +50,7 @@ Page({
   },
   onEdit(e){
     const id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: `/pages/admin/manageEdit/index?id=${id}` });
+    wx.navigateTo({ url: `/pages/admin/manage/index?id=${id}` });
   }
   ,
   onRoster(e){
