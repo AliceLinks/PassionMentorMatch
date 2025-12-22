@@ -47,7 +47,6 @@ public class AdminReservationController {
             com.example.mentor.dao.entity.User u = userMap.get(r.getUserId());
             Map<String,Object> user = new LinkedHashMap<>();
             user.put("id", r.getUserId());
-            user.put("nickname", u!=null ? u.getNickname() : null);
             user.put("avatar", u!=null ? u.getAvatar() : null);
             m.put("user", user);
             return m;

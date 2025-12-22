@@ -10,8 +10,9 @@ Page({
 
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({ selected: 1 });
+      this.getTabBar().setData({ selected: 2 });
     }
+    // 移除手动高亮 tabBar
     this.loadData();
     // 控制管理员入口显示：有 ADMIN_TOKEN 或本地开关 SHOW_ADMIN 为真
     const hasAdminToken = !!wx.getStorageSync('ADMIN_TOKEN');
@@ -29,7 +30,8 @@ Page({
         return api.get('/user/profile');
       })
       .then(res => {
-        this.setData({ userInfo: res });
+        console.log('userInfo:', res, res.data);
+        this.setData({ userInfo: res.data || res });
       })
       .catch(() => {
         // 未登录或失败时，引导登录
@@ -71,5 +73,14 @@ Page({
     if (!ui.avatar || ui.avatar === fallback) return;
     ui.avatar = fallback;
     this.setData({ userInfo: ui });
-  }
+  },
+
+  logout() {
+    wx.removeStorageSync('userInfo');
+    wx.removeStorageSync('token'); // 修正为小写
+    wx.removeStorageSync('TOKEN'); // 兼容历史
+    wx.removeStorageSync('ADMIN_TOKEN');
+    this.setData({ userInfo: null });
+    wx.redirectTo({ url: '/pages/login/index' });
+  },
 });

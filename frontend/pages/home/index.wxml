@@ -9,7 +9,7 @@
       <view class="card-body">
         <view class="row">
           <text class="label">我的状态</text>
-          <text class="value">{{user.nickname || '游客'}}</text>
+          <text class="value">{{user.realName || '游客'}}</text>
         </view>
         <view class="row-sub muted">卡片：{{cards.length}} 张 · 本周课程：{{stats.courseCount}} 门</view>
         <view class="actions">

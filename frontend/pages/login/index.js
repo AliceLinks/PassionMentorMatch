@@ -1,10 +1,13 @@
 // pages/login/index.js
+  // pages/login/index.js
 const app = getApp();
 const api = require('../../utils/request.js');
 
 Page({
   data: {
-    loading: false
+    loading: false,
+    phone: '',
+    password: ''
   },
   onShow() {
     // 已有 token 则跳过
@@ -13,11 +16,29 @@ Page({
       this.afterLogin();
     }
   },
+  onPhoneInput(e) {
+    this.setData({ phone: e.detail.value });
+  },
+  onPasswordInput(e) {
+    this.setData({ password: e.detail.value });
+  },
   onLogin() {
     if (this.data.loading) return;
+    const { phone, password } = this.data;
+    if (!phone || !password) {
+      wx.showToast({ title: '请输入手机号和密码', icon: 'none' });
+      return;
+    }
     this.setData({ loading: true });
-    app.doLogin()
-      .then(() => this.afterLogin())
+    api.post('/user/login', { phone, password })
+      .then(res => {
+        if (res && res.token) {
+          wx.setStorageSync('token', res.token);
+          this.afterLogin();
+        } else {
+          wx.showToast({ title: '登录失败', icon: 'none' });
+        }
+      })
       .catch(() => wx.showToast({ title: '登录失败', icon: 'none' }))
       .finally(() => this.setData({ loading: false }));
   },
@@ -28,11 +49,15 @@ Page({
         wx.setStorageSync('userInfo', user);
         if (app && app.globalData) app.globalData.user = user;
         wx.showToast({ title: '登录成功', icon: 'success' });
-        wx.navigateBack({ delta: 1 });
+        wx.switchTab({ url: '/pages/home/index' });
       })
       .catch(() => {
-        // 容错：仍然返回
-        wx.navigateBack({ delta: 1 });
+        // 容错：仍然返回主页
+        wx.switchTab({ url: '/pages/home/index' });
       });
+  }
+  ,
+  onRegister() {
+    wx.navigateTo({ url: '/pages/register/index' });
   }
 })

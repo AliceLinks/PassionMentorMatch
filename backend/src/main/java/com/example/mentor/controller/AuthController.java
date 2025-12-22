@@ -15,6 +15,25 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+    // POST /api/user/register -> 注册新用户
+    @PostMapping("/register")
+    public ResponseEntity<Result<?>> register(@RequestBody com.example.mentor.dto.request.RegisterRequest registerRequest) {
+        try {
+            authService.register(
+                registerRequest.getPhone(),
+                registerRequest.getPassword(),
+                registerRequest.getRealName(),
+                registerRequest.getAvatar()
+            );
+            return ResponseEntity.ok(Result.buildSuccess("注册成功"));
+        } catch (IllegalArgumentException e) {
+            log.warn("Register bad request: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(Result.buildFailure(400, "400", e.getMessage()));
+        } catch (RuntimeException e) {
+            log.warn("Register failed: {}", e.getMessage(), e);
+            return ResponseEntity.badRequest().body(Result.buildFailure(400, "REGISTER_FAILED", e.getMessage()));
+        }
+    }
 
     private final AuthService authService;
     private final com.example.mentor.dao.mapper.UserMapper userMapper;
@@ -23,15 +42,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<Result<?>> login(@RequestBody LoginRequest loginRequest) {
         try {
-            String token = authService.loginByWeChatCode(loginRequest.getCode());
+            String token = authService.loginByPhoneAndPassword(loginRequest.getPhone(), loginRequest.getPassword());
             User user = authService.getUserInfoByToken(token);
             return ResponseEntity.ok(Result.buildSuccess(new LoginResponse(token, user)));
         } catch (IllegalArgumentException e) {
-            // 参数错误（如 code 为空）
             log.warn("Login bad request: {}", e.getMessage());
             return ResponseEntity.badRequest().body(Result.buildFailure(400, "400", e.getMessage()));
         } catch (RuntimeException e) {
-            // 外部服务或业务失败（如微信接口/登录失败）
             log.warn("Login failed: {}", e.getMessage(), e);
             return ResponseEntity.badRequest().body(Result.buildFailure(400, "LOGIN_FAILED", e.getMessage()));
         }
@@ -73,27 +90,31 @@ public class AuthController {
             if (body == null) {
                 return ResponseEntity.badRequest().body(Result.buildFailure(400, "BAD_REQUEST", "请求体为空"));
             }
-            // 允许更新的字段
+
+            // 允许更新的字段，兼容 realName（驼峰）和 real_name（下划线）
             Object avatar = body.get("avatar");
-            Object nickname = body.get("nickname");
-            Object realName = body.get("real_name");
+            Object realName = body.get("realName");
+            Object real_name = body.get("real_name");
             Object phone = body.get("phone");
 
             if (avatar != null) user.setAvatar(String.valueOf(avatar));
-            if (nickname != null) user.setNickname(String.valueOf(nickname));
-            if (realName != null) user.setRealName(String.valueOf(realName));
+            // 优先 realName，其次 real_name
+            if (realName != null) {
+                user.setRealName(String.valueOf(realName));
+            } else if (real_name != null) {
+                user.setRealName(String.valueOf(real_name));
+            }
             if (phone != null) user.setPhone(String.valueOf(phone));
 
-            // 简单校验：昵称长度、手机号长度
-            if (user.getNickname() != null && user.getNickname().length() > 32) {
-                return ResponseEntity.badRequest().body(Result.buildFailure(400, "BAD_REQUEST", "昵称过长"));
-            }
+            // 简单校验：手机号长度
             if (user.getPhone() != null && user.getPhone().length() > 32) {
                 return ResponseEntity.badRequest().body(Result.buildFailure(400, "BAD_REQUEST", "手机号不合法"));
             }
 
-                // 持久化
-                userMapper.updateById(user);
+            log.info("[updateUserProfile] before update, real_name={}", user.getRealName());
+            // 持久化
+            userMapper.updateById(user);
+            log.info("[updateUserProfile] after update, real_name={}", user.getRealName());
             return ResponseEntity.ok(Result.buildSuccess(user));
         } catch (IllegalArgumentException e) {
             if ("未提供token".equals(e.getMessage())) {

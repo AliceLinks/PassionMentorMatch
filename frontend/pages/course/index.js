@@ -12,10 +12,10 @@ Page({
   },
 
   onShow() {
-    if (this.getTabBar) {
-      const tab = this.getTabBar();
-      tab && tab.setData({ selected: 0 });
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 1 });
     }
+    // 移除手动高亮 tabBar
     this.initWeek();
     this.fetchCourses();
   },
@@ -78,7 +78,8 @@ Page({
         const list = (res.courses || []).map(item => {
           const d = new Date(item.course_date);
           const wd = ['日','一','二','三','四','五','六'][d.getDay()];
-          return { ...item, weekday: wd };
+          // 强制将所有id转为字符串，避免大整数精度丢失
+          return { ...item, id: String(item.id), reservation_id: item.reservation_id ? String(item.reservation_id) : undefined, weekday: wd };
         });
         // 若已有选中日期，则按选中日期进行默认筛选
         const sel = this.data.selectedDate;
@@ -98,7 +99,8 @@ Page({
   },
 
   onBook(e) {
-    const courseId = e.currentTarget.dataset.id;
+    let courseId = e.currentTarget.dataset.id;
+    courseId = String(courseId);
     wx.showModal({
       title: '预约确认',
       content: '确定要预约这节导师课吗？',
@@ -123,8 +125,9 @@ Page({
   },
 
   onCancel(e) {
-    const reservationId = e.currentTarget.dataset.id;
+    let reservationId = e.currentTarget.dataset.id;
     if (!reservationId) return;
+    reservationId = String(reservationId);
     wx.showModal({
       title: '取消预约',
       content: '确定要取消该课程预约吗？',

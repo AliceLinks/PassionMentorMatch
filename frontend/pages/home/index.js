@@ -2,12 +2,20 @@ const api = require('../../utils/request.js');
 
 Page({
   data: {
-    user: wx.getStorageSync('userInfo') || { nickname: '游客' },
+    user: wx.getStorageSync('userInfo') || { realName: '游客' },
     cards: [],
     recommend: [],
     stats: { courseCount: 0 }
   },
   onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 });
+    }
+
+    // 日志：页面加载时打印 userInfo
+    const userInfo = wx.getStorageSync('userInfo');
+    console.log('[home] userInfo from storage:', userInfo);
+
     // 先确保完成登录，避免未携带令牌导致 401
     const app = getApp();
     Promise.resolve(app && typeof app.doLogin === 'function' ? app.doLogin() : null)
@@ -15,8 +23,10 @@ Page({
       .finally(() => {
         // 读取用户信息与卡片
         api.get('/user/profile').then(u => {
+          console.log('[home] /user/profile 返回:', u);
           this.setData({ user: u });
           wx.setStorageSync('userInfo', u);
+          console.log('[home] setData user:', u, 'realName:', u && u.realName);
         }).catch(() => {});
         api.get('/user/cards').then(cards => this.setData({ cards: cards || [] })).catch(() => {});
       });

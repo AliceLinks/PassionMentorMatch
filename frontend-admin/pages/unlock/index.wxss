@@ -1,0 +1,7 @@
+.unlock-container { padding: 48px 24px 0 24px; text-align: center; }
+.unlock-title { font-size: 18px; font-weight: 600; margin-bottom: 32px; }
+.pwd-box { position: relative; width: 240px; margin: 0 auto; }
+.real-input { position: absolute; opacity: 0; width: 240px; height: 48px; z-index: 2; }
+.pwd-dots { display: flex; justify-content: space-between; background: #fff; border-radius: 8px; border: 1.5px solid #16dc5fff; box-shadow: 0 2px 8px rgba(41, 248, 48, 0.52); height: 48px; align-items: center; padding: 0 12px; }
+.dot { width: 28px; height: 28px; border-radius: 50%; background: #83ff7bff; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #13d42dff; }
+.error { color: #f5222d; margin-top: 18px; min-height: 24px; font-size: 14px; }

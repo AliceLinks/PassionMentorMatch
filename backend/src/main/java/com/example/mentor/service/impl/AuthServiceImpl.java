@@ -26,12 +26,54 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthServiceImpl implements AuthService {
-
     private final WeChatProperties weChatProps;
     private final AuthProperties authProps;
     private final RestTemplate restTemplate;
     private final UserMapper userMapper;
     private final UserTokenMapper userTokenMapper;
+
+    @Override
+    public void register(String phone, String password, String realName, String avatar) {
+        if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
+            throw new IllegalArgumentException("手机号和密码不能为空");
+        }
+        User exist = userMapper.selectByPhone(phone);
+        if (exist != null) {
+            throw new RuntimeException("手机号已注册");
+        }
+        // MD5加密
+        String encryptedPwd = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
+        User user = new User();
+        user.setPhone(phone);
+        user.setPasswordHash(encryptedPwd); // passwordHash字段
+        user.setStatus("active");
+        user.setRealName(realName);
+        user.setAvatar(avatar);
+        userMapper.insert(user);
+    }
+
+    @Override
+    public String loginByPhoneAndPassword(String phone, String password) {
+        if (!StringUtils.hasText(phone) || !StringUtils.hasText(password)) {
+            throw new IllegalArgumentException("手机号和密码不能为空");
+        }
+        User user = userMapper.selectByPhone(phone);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
+        String encryptedPwd = org.apache.commons.codec.digest.DigestUtils.md5Hex(password);
+        if (!encryptedPwd.equals(user.getPasswordHash())) {
+            throw new RuntimeException("密码错误");
+        }
+        // 生成 token 并保存
+        String token = UUID.randomUUID().toString();
+        UserToken userToken = new UserToken();
+        userToken.setUserId(user.getId());
+        userToken.setToken(token);
+        userToken.setExpireAt(Date.from(Instant.now().plus(7, ChronoUnit.DAYS)));
+        userTokenMapper.insert(userToken);
+        return token;
+    }
 
     @Override
     public String loginByWeChatCode(String code) {
@@ -76,7 +118,6 @@ public class AuthServiceImpl implements AuthService {
         if (user == null) {
             user = new User();
             user.setOpenid(openid);
-            user.setNickname("游客");
             user.setStatus("active");
             userMapper.insert(user);
         }

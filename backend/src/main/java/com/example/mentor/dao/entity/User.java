@@ -1,4 +1,7 @@
+
 package com.example.mentor.dao.entity;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -10,6 +13,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 @TableName("users")
 public class User extends BaseDO {
     @TableId(type = IdType.AUTO)
@@ -17,7 +21,7 @@ public class User extends BaseDO {
 
     private String openid;
 
-    private String nickname;
+    private String passwordHash; // 密码MD5加密存储
 
     @TableField("real_name")
     private String realName;

@@ -51,7 +51,8 @@ public class CourseController {
         java.util.Map<Long, Long> reservationIdByCourse = getReservationIdMap(token, courses);
         List<Map<String, Object>> list = courses.stream().map(c -> {
             Map<String, Object> m = new LinkedHashMap<>();
-            m.put("id", c.getId());
+            // id、reservation_id 全部转为字符串，彻底避免前端精度丢失
+            m.put("id", c.getId() == null ? null : String.valueOf(c.getId()));
             m.put("course_date", formatDate(c.getCourseDate()));
             m.put("start_time", c.getStartTime() == null ? null : c.getStartTime().toString());
             m.put("end_time", c.getEndTime() == null ? null : c.getEndTime().toString());
@@ -63,7 +64,7 @@ public class CourseController {
             m.put("week_number", c.getWeekNumber());
             m.put("reserved", reservedIds.contains(c.getId()));
             Long rid = reservationIdByCourse.get(c.getId());
-            if (rid != null) { m.put("reservation_id", rid); }
+            if (rid != null) { m.put("reservation_id", String.valueOf(rid)); }
             return m;
         }).collect(Collectors.toList());
 
@@ -130,6 +131,7 @@ public class CourseController {
         int success = 0;
         int failed = 0;
         List<Map<String, Object>> errors = new ArrayList<>();
+        List<Long> insertedIds = new ArrayList<>();
 
         if (items == null) {
             return Result.buildFailure(400, "请求体不能为空，需为数组");
@@ -175,7 +177,7 @@ public class CourseController {
                 c.setCurrentParticipants(0);
                 c.setStatus("published");
                 courseMapper.insert(c);
-
+                insertedIds.add(c.getId());
                 success++;
             } catch (Exception ex) {
                 failed++;
@@ -189,6 +191,7 @@ public class CourseController {
         Map<String, Object> resp = new HashMap<>();
         resp.put("success", success);
         resp.put("failed", failed);
+        resp.put("insertedIds", insertedIds);
         if (!errors.isEmpty()) {
             resp.put("errors", errors);
         }

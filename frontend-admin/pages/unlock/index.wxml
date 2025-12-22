@@ -1,0 +1,12 @@
+<view class="unlock-container">
+  <view class="unlock-title">请输入6位解锁密码</view>
+  <view class="pwd-box">
+    <input class="real-input" type="number" maxlength="6" focus="true" value="{{pwd}}" bindinput="onInput" bindfocus="onFocus" />
+    <view class="pwd-dots">
+      <block wx:for="{{pwdInput}}" wx:key="index">
+        <view class="dot">{{item ? '●' : ''}}</view>
+      </block>
+    </view>
+  </view>
+  <view class="error">{{error}}</view>
+</view>
