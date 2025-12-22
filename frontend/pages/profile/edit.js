@@ -20,15 +20,47 @@ Page({
     }
   },
   onChooseAvatar(e) {
-    const avatarUrl = e.detail && e.detail.avatarUrl;
-    if (avatarUrl) this.setData({ avatarUrl });
+    const tempFilePath = e.detail && e.detail.avatarUrl; // 微信头像/本地临时路径
+    if (!tempFilePath) return;
+
+    const token = wx.getStorageSync('token');
+    wx.showLoading({ title: '上传中...', mask: true });
+
+    wx.uploadFile({
+      url: 'http://127.0.0.1:8080/api/image/upload',
+      filePath: tempFilePath,
+      name: 'file',
+      header: {
+        'Authorization': token ? `Bearer ${token}` : ''
+      },
+      success: (res) => {
+        try {
+          const data = JSON.parse(res.data);
+          if (data.code === 200) {
+            const url = data.data; 
+            this.setData({ avatarUrl: url });
+            wx.showToast({ title: '上传成功', icon: 'success' });
+          } else {
+            wx.showToast({ title: data.message || '上传失败', icon: 'none' });
+          }
+        } catch (err) {
+          wx.showToast({ title: '上传失败', icon: 'none' });
+        }
+      },
+      fail: () => {
+        wx.showToast({ title: '网络错误', icon: 'none' });
+      },
+      complete: () => {
+        wx.hideLoading();
+      }
+    });
   },
   onNicknameInput(e) { this.setData({ nickname: e.detail.value }); },
   onRealNameInput(e) { this.setData({ real_name: e.detail.value }); },
   onPhoneInput(e) { this.setData({ phone: e.detail.value }); },
   onSave() {
     const payload = {
-      avatar: this.data.avatarUrl,
+      avatar: this.data.avatarUrl,          
       nickname: this.data.nickname || '游客',
       realName: this.data.real_name || null,
       phone: this.data.phone || null

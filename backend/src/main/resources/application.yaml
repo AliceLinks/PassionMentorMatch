@@ -41,4 +41,10 @@ management:
       probes:
         enabled: true
 
-  
+aliyun:
+  oss:
+    endpoint:
+    accessKeyId: 
+    accessKeySecret: 
+    bucketName: 
+

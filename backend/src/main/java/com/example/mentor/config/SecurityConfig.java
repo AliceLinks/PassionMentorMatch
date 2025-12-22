@@ -42,7 +42,8 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST,
                             "/api/user/register",
                             "/api/user/login",
-                            "/api/admin/login"   
+                            "/api/admin/login",
+                            "/api/image/upload"   
                     ).permitAll()
                     // 其它 /api/** 需要登录
                     .requestMatchers("/api/**").authenticated()
