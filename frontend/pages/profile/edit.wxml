@@ -10,6 +10,10 @@
       <input class="nick-input" placeholder="请输入昵称" value="{{nickname}}" bindinput="onNicknameInput" />
       <input class="nick-input" placeholder="请输入姓名" value="{{real_name}}" bindinput="onRealNameInput" />
       <input class="nick-input" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
+
+      <input class="nick-input" placeholder="原密码（不改可留空）" password="true" bindinput="onOldPwdInput" />
+      <input class="nick-input" placeholder="新密码（至少6位）" password="true" bindinput="onNewPwdInput" />
+      
       <view class="actions"><button class="btn" bindtap="onSave">保存</button></view>
     </view>
   </view>

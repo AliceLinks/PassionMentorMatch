@@ -5,15 +5,17 @@
   </view>
 
   <block wx:for="{{courses}}" wx:key="id">
-    <view class="card">
+    <view wx:if="{{item.status === 'published'}}" class="card">
       <view class="card-top">
-        <view class="badge {{item.status}}">{{ item.status === 'published' ? '已发布' : (item.status === 'cancelled' ? '已取消' : item.status) }}</view>
+        <view class="badge published">已发布</view>
         <view class="course-title">{{item.dance_type}} · {{item.teacher}}</view>
       </view>
       <view class="card-middle">
         <view class="time">
-          <text class="label">时间</text>
-          <text class="value">{{item.course_date}} {{item.start_time}}-{{item.end_time}}</text>
+          <view class="value">
+            <view>{{item.course_date}}</view>
+            <view>{{item.start_time}}-{{item.end_time}}</view>
+          </view>
         </view>
         <view class="stats">
           <view class="stat"><text class="label">容量</text><text class="value">{{item.capacity}}</text></view>
@@ -21,8 +23,7 @@
         </view>
       </view>
       <view class="card-actions">
-        <button class="btn btn-warn" size="mini" data-id="{{item.id}}" bindtap="onCancel" wx:if="{{item.status !== 'cancelled'}}">取消课程</button>
-        <button class="btn btn-primary" size="mini" data-id="{{item.id}}" bindtap="onRoster">预约名单</button>
+        <button class="btn btn-warn" size="mini" data-id="{{item.id}}" bindtap="onCancel">取消课程</button>
         <button class="btn" size="mini" data-id="{{item.id}}" bindtap="onEdit">编辑信息</button>
       </view>
     </view>

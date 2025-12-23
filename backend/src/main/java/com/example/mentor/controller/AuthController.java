@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.util.DigestUtils;   // 新增导入
 
 @RestController
 @RequestMapping("/api/user")
@@ -94,8 +95,25 @@ public class AuthController {
             if (StringUtils.hasText(body.getAvatar())) {
                 user.setAvatar(body.getAvatar());
             }
-            if (StringUtils.hasText(body.getNickname())) {  
+            if (StringUtils.hasText(body.getNickname())) {
                 user.setNickname(body.getNickname());
+            }
+
+            // 修改密码
+            if (StringUtils.hasText(body.getOldPassword()) || StringUtils.hasText(body.getNewPassword())) {
+                if (!StringUtils.hasText(body.getOldPassword()) || !StringUtils.hasText(body.getNewPassword())) {
+                    return ResponseEntity.ok(Result.buildFailure(400, "修改密码需要同时提供原密码和新密码"));
+                }
+                // 只允许已设置密码的账号改密码（纯 openid 的可以跳过或按需处理）
+                if (user.getPasswordHash() == null) {
+                    return ResponseEntity.ok(Result.buildFailure(400, "当前账号未设置密码，无法修改"));
+                }
+                String oldHash = DigestUtils.md5DigestAsHex(body.getOldPassword().getBytes());
+                if (!oldHash.equals(user.getPasswordHash())) {
+                    return ResponseEntity.ok(Result.buildFailure(400, "原密码错误"));
+                }
+                String newHash = DigestUtils.md5DigestAsHex(body.getNewPassword().getBytes());
+                user.setPasswordHash(newHash);
             }
 
             userMapper.updateById(user);

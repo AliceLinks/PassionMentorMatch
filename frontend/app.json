@@ -6,8 +6,13 @@
     "pages/profile/edit",
     "pages/my-reservations/index",
     "pages/login/index",
+
     "pages/admin/login/index",
+    "pages/admin/home/index",
+    "pages/admin/courses/index",
+    "pages/admin/checkin/index",
     "pages/admin/manage/index",
+    "pages/admin/manageEdit/index",
     "pages/admin/roster/index"
   ],
   "window": {

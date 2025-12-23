@@ -1,1 +1,26 @@
-/* pages/admin/manage/index.wxss */
+.container{ padding:24rpx; background:#f7f8fa; min-height:100vh; }
+.sticky-header{ position:sticky; top:0; z-index:10; background:#f7f8fa; padding-bottom:16rpx; }
+.sticky-header .title{ font-size:34rpx; font-weight:700; color:#222; }
+.sticky-header .sub{ font-size:24rpx; color:#888; }
+
+.card{ background:#fff; border-radius:16rpx; padding:20rpx; box-shadow:0 6rpx 16rpx rgba(0,0,0,0.06); margin-bottom:16rpx; }
+.card-top{ display:flex; align-items:center; gap:12rpx; justify-content:space-between; }
+.course-title{ font-size:30rpx; font-weight:600; color:#222; }
+.badge{ padding:4rpx 12rpx; border-radius:999rpx; font-size:22rpx; }
+.badge.published{ background:#e6fffb; color:#08979c; }
+.badge.cancelled{ background:#fff1f0; color:#cf1322; }
+
+.card-middle{ margin-top:12rpx; display:flex; justify-content:space-between; align-items:center; }
+.time .label{ color:#888; }
+.time .value{ color:#333; margin-left:8rpx; }
+.stats{ display:flex; gap:16rpx; }
+.stat .label{ color:#888; }
+.stat .value{ color:#222; font-weight:600; margin-left:6rpx; }
+
+.card-actions{ display:flex; gap:12rpx; margin-top:16rpx; }
+.btn{ background:#fff; border:1rpx solid #ddd; border-radius:999rpx; padding:0 20rpx; color:#333; }
+.btn-warn{ color:#cf1322; border-color:#ffa39e; background:#fff1f0; }
+
+.empty{ color:#888; text-align:center; margin-top:24rpx; }
+.empty-icon{ font-size:48rpx; }
+.empty-text{ margin-top:8rpx; }

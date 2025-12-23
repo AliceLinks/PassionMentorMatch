@@ -34,7 +34,7 @@ Page({
           const token = data.data.token;
           wx.setStorageSync('ADMIN_TOKEN', token);
           wx.showToast({ title: '登录成功', icon: 'success' });
-          wx.redirectTo({ url: '/pages/admin/manage/index' });
+          wx.redirectTo({ url: '/pages/admin/home/index' });
         } else {
           wx.showToast({ title: data.message || '登录失败', icon: 'none' });
         }

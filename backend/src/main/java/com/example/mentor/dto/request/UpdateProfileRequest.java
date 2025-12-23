@@ -7,5 +7,8 @@ public class UpdateProfileRequest {
     private String realName;
     private String phone;
     private String avatar;
-    private String nickname; 
+    private String nickname;
+
+    private String oldPassword;
+    private String newPassword;
 }
