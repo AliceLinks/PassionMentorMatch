@@ -1,0 +1,8 @@
+<view class="unlock-container">
+  <view class="unlock-title">管理员登录</view>
+  <view class="single-box">
+    <input class="single-input" type="text" password="true" placeholder="{{prompt}}" value="{{inputValue}}" bindinput="onInput" bindconfirm="onSubmit" />
+  </view>
+  <button class="submit-btn" bindtap="onSubmit">登录</button>
+  <view class="error">{{error}}</view>
+</view>

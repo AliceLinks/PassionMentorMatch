@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="user-card" bindtap="handleLogin">
+    <view class="header-actions">
+      <button class="edit-btn" size="mini" bindtap="goProfileEdit">编辑</button>
+    </view>
+    <image class="avatar"
+           src="{{userInfo.avatar || 'https://ts2.tc.mm.bing.net/th/id/OIP-C.p6hdmBEvZCMwVcWDVnQr0QAAAA?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3'}}"
+           binderror="onAvatarError" />
+    <view class="info">
+      <view class="realname">{{userInfo.realName || '未填写'}}</view>
+      <view class="status" wx:if="{{userInfo}}">状态: {{userInfo.status}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">我的导师卡</view>
+  <view class="cards-container">
+    <block wx:for="{{cards}}" wx:key="id">
+      <view class="mentor-card {{item.status}}">
+        <view class="card-type">{{item.card_type === 'semester' ? '学期卡' : (item.card_type === 'annual' ? '年卡' : '终身卡')}}</view>
+        <view class="card-no">NO. {{item.card_number}}</view>
+        <view class="card-date">有效期至: {{item.end_date}}</view>
+        <view class="card-status">{{item.status === 'active' ? '生效中' : '已失效'}}</view>
+      </view>
+    </block>
+    <view wx:if="{{cards.length === 0}}" class="empty-card">暂无有效导师卡</view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goReservations">
+      <text class="label">我的预约记录</text>
+      <text class="arrow">></text>
+    </view>
+    <!-- 管理员入口（仅开发/管理员可见） -->
+    <view wx:if="{{isAdminVisible}}" class="menu-item" bindtap="goAdminHome">
+      <text class="label">管理员主页</text>
+      <text class="arrow">></text>
+    </view>
+    <view class="menu-item logout-btn" bindtap="logout">
+      <text class="label">退出登录</text>
+    </view>
+  </view>
+</view>

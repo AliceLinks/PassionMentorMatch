@@ -1,0 +1,21 @@
+{
+  "pages": [
+    "pages/unlock/index",
+    "pages/unlock/change",
+    "pages/admin/home/index",
+    "pages/admin/courses/index",
+    "pages/admin/checkin/index",
+    "pages/admin/manage/index",
+    "pages/admin/manageEdit/index",
+    "pages/admin/roster/index",
+    "pages/admin/cards/index",
+    "pages/admin/contentManage/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "Passion 管理端",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light"
+  }
+}

@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="section">
+    <view class="section-title">课程介绍链接</view>
+    <input class="input" placeholder="请输入微信文章链接" value="{{courseIntro}}" bindinput="onCourseIntroInput" />
+    <button type="primary" size="mini" style="margin-top:8rpx;" bindtap="saveCourseIntro">保存链接</button>
+  </view>
+  <view class="section">
+    <view class="section-title">路线图图片</view>
+    <image wx:if="{{roadmapImg}}" src="{{roadmapImg}}" mode="widthFix" style="width:100%;margin-bottom:12rpx;" />
+    <button type="primary" size="mini" bindtap="chooseRoadmapImg">上传/更换图片</button>
+  </view>
+</view>

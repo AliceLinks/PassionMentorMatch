@@ -1,0 +1,6 @@
+.change-container { padding: 48px 24px 0 24px; text-align: center; }
+.change-title { font-size: 18px; font-weight: 600; margin-bottom: 32px; }
+.input { width: 220px; margin: 12px auto; display: block; border: 1.5px solid #0fbd17ff; border-radius: 8px; height: 40px; padding: 0 12px; font-size: 18px; }
+.error { color: #f5222d; min-height: 24px; font-size: 14px; margin-top: 8px; }
+.success { color: #52c41a; min-height: 24px; font-size: 14px; margin-top: 8px; }
+.btn { margin-top: 24px; width: 220px; }

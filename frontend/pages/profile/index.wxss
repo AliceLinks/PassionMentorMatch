@@ -1,0 +1,40 @@
+.card + .card {
+  margin-top: 16rpx;
+}
+.profile-header {
+  background: linear-gradient(135deg, #07c160 0%, #22c55e 50%, #a7f3d0 100%);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  color: #fff;
+}
+.profile-card {
+  display:flex;align-items:center;gap:16rpx;
+}
+.avatar { width:96rpx;height:96rpx;border-radius:50%; }
+.info { flex:1; }
+.name { font-size:32rpx;font-weight:600; }
+.meta { color:#e6fffb; }
+.quick-actions { display:flex;gap:16rpx;margin:16rpx 0; }
+.qa-item { flex:1;background:#fff;border-radius:12rpx;padding:16rpx;display:flex;flex-direction:column;align-items:center;gap:8rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,0.06); }
+.qa-icon { font-size:40rpx; }
+.qa-text { color:#333; }
+.list-item { display:flex;justify-content:space-between;align-items:center;padding:16rpx;background:#fff;border-radius:12rpx;margin-bottom:12rpx; }
+.muted { color:#666; }
+.more-link { color:#07c160;margin-bottom:16rpx; }
+
+/* 美化：顶部用户卡片 */
+.user-card { position:relative; background:#fff; border-radius:16rpx; padding:24rpx; display:flex; align-items:center; gap:16rpx; box-shadow:0 4rpx 12rpx rgba(0,0,0,0.06); }
+.header-actions { position: absolute; right: 24rpx; top: 24rpx; z-index: 2; }
+.edit-btn { background:#fff; color:#07c160; border:1rpx solid #07c160; border-radius:999rpx; padding:0 20rpx; }
+.edit-btn { background:#fff; color:#07c160; border:1rpx solid #07c160; border-radius:999rpx; padding:0 20rpx; }
+.user-card .avatar { width:96rpx; height:96rpx; border-radius:50%; background:#f2f2f2; }
+.user-card .info { flex:1; }
+.user-card .nickname { font-size:32rpx; font-weight:600; color:#222; }
+.user-card .status { margin-top:8rpx; color:#888; }
+
+/* 美化：菜单列表为卡片风格 */
+.menu-list { margin-top:16rpx; }
+.menu-item { display:flex; justify-content:space-between; align-items:center; padding:20rpx; background:#fff; border-radius:12rpx; box-shadow:0 4rpx 12rpx rgba(0,0,0,0.06); margin-bottom:12rpx; }
+.menu-item .label { font-size:28rpx; color:#333; }
+.menu-item .arrow { color:#bbb; }
+.logout-btn { color: #e53e3e; font-weight: bold; }
