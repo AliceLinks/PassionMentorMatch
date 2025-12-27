@@ -1,6 +1,76 @@
 <view class="container">
-  <button class="btn" bindtap="onScan">扫码核销</button>
-  <view wx:if="{{scanResult}}" class="scan-tip">已扫码：{{scanResult}}</view>
-  <input placeholder="预约ID" bindinput="onRid" />
-  <button class="btn" bindtap="onCheckin">签到核销</button>
+  <view class="week-nav-top">
+    <button size="mini" class="nav-btn" bindtap="prevWeek">上一周</button>
+    <view class="week-start">{{weekLabel}}</view>
+    <button size="mini" class="nav-btn" bindtap="nextWeek">下一周</button>
+  </view>
+  <view class="week-header">
+    <block wx:for="{{weekDays}}" wx:key="fullDate">
+      <view class="day-item {{selectedDate === item.fullDate ? 'active' : ''}}" bindtap="selectDay" data-date="{{item.fullDate}}">
+        <text class="week-day">周{{item.weekDay}}</text>
+        <text class="date-num">{{item.date}}</text>
+      </view>
+    </block>
+  </view>
+  <view class="courses">
+    <block wx:if="{{courses.length === 0}}">
+      <view class="empty">暂无课程</view>
+    </block>
+    <block wx:for="{{courses}}" wx:key="id">
+      <view class="card">
+        <view class="card-row">
+          <view class="date">{{item.course_date}}</view>
+          <view class="time">{{item.start_time}} - {{item.end_time}}</view>
+        </view>
+        <view class="card-row small">
+          <view>教师：{{item.teacher}}</view>
+          <view>舞种：{{item.dance_type}}</view>
+        </view>
+        <view class="card-row small">
+          <view>
+            容量：{{item.capacity}}，已报：{{item.current_participants}}，预约数：{{item.reserved_count}}
+          </view>
+          <button data-id="{{item.id}}" bindtap="openReservations">查看预约名单</button>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="overlay" wx:if="{{showReservations}}">
+    <view class="modal">
+      <view class="modal-header">
+        <view class="title">预约名单 - {{selectedCourse.teacher}} {{selectedCourse.course_date}}</view>
+        <button bindtap="closeReservations">关闭</button>
+      </view>
+      <view class="filters">
+        <button data-filter="all" bindtap="changeFilter" class="filter-btn {{filter==='all'? 'active':''}}">
+          全部
+        </button>
+        <button data-filter="checked" bindtap="changeFilter" class="filter-btn {{filter==='checked'? 'active':''}}">
+          已签到
+        </button>
+        <button data-filter="not_checked" bindtap="changeFilter" class="filter-btn {{filter==='not_checked'? 'active':''}}">
+          未签到
+        </button>
+      </view>
+      <scroll-view class="list" scroll-y="true">
+        <block wx:for="{{reservations}}" wx:key="reservation_id">
+          <view class="item">
+            <image src="{{item.real_name_image}}" class="avatar" mode="aspectFill" wx:if="{{item.real_name_image}}" bindtap="previewAvatar" data-src="{{item.real_name_image}}" />
+            <view class="info">
+              <view class="name">{{item.real_name || '匿名'}}</view>
+              <view class="phone">{{item.phone || ''}}</view>
+            </view>
+            <view class="actions">
+              <block wx:if="{{item.checkin_status === 'checked'}}">
+                <button data-id="{{item.reservation_id}}" bindtap="doUncheckin">取消签到</button>
+              </block>
+              <block wx:else>
+                <button data-id="{{item.reservation_id}}" bindtap="doCheckin">签到</button>
+              </block>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
 </view>

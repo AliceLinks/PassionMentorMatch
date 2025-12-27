@@ -3,7 +3,6 @@
     <view class="hero-title">管理员总览</view>
     <view class="hero-sub">快速进入常用功能</view>
   </view>
-
   <view class="grid">
     <view class="card" bindtap="goManageCourses">
       <view class="card-icon">⚙️</view>
@@ -15,12 +14,17 @@
       <view class="card-title">批量发布课程</view>
       <view class="card-sub">创建并发布一周课程</view>
     </view>
-    <!-- 预约名单入口已移至课程管理详情页 -->
+    <view class="card" bindtap="goCardIssue">
+      <view class="card-icon">🎫</view>
+      <view class="card-title">导师卡发放</view>
+      <view class="card-sub">发放/更新导师卡</view>
+    </view>
     <view class="card" bindtap="goCheckin">
       <view class="card-icon">✅</view>
       <view class="card-title">签到核销</view>
-      <view class="card-sub">扫码或手动核销</view>
+      <view class="card-sub">查询并核销</view>
     </view>
   </view>
   <button class="change-pwd-btn" type="default" bindtap="goChangePwd">修改解锁密码</button>
+  <button class="logout-btn" type="default" bindtap="onLogout">退出登录</button>
 </view>

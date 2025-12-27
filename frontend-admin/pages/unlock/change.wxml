@@ -1,8 +1,8 @@
 <view class="change-container">
   <view class="change-title">修改解锁密码</view>
-  <input class="input" type="number" maxlength="6" placeholder="原密码" password="true" bindinput="onOldInput" />
-  <input class="input" type="number" maxlength="6" placeholder="新密码（6位数字）" password="true" bindinput="onNewInput" />
-  <input class="input" type="number" maxlength="6" placeholder="确认新密码" password="true" bindinput="onConfirmInput" />
+  <input class="input" type="text" placeholder="原密码" password="true" bindinput="onOldInput" />
+  <input class="input" type="text" placeholder="新密码" password="true" bindinput="onNewInput" />
+  <input class="input" type="text" placeholder="确认新密码" password="true" bindinput="onConfirmInput" />
   <view class="error">{{error}}</view>
   <view class="success">{{success}}</view>
   <button class="btn" type="primary" bindtap="onSubmit">确认修改</button>
