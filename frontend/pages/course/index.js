@@ -103,7 +103,7 @@ Page({
     courseId = String(courseId);
     wx.showModal({
       title: '预约确认',
-      content: '确定要预约这节导师课吗？',
+      content: '确定要预约这节课吗？',
       success: (res) => {
         if (res.confirm) {
           api.post('/reservations', { course_id: courseId })

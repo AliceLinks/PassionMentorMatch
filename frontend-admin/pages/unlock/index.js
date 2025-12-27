@@ -1,28 +1,30 @@
 Page({
   data: {
-    pwd: '',
-    error: '',
-    pwdInput: ['', '', '', '', '', ''],
-    focusIdx: 0
+    inputValue: '',
+    error: ''
   },
   onInput(e) {
-    let val = e.detail.value.replace(/\D/g, '').slice(0, 6);
-    let arr = val.split('');
-    while (arr.length < 6) arr.push('');
-    this.setData({ pwd: val, pwdInput: arr, focusIdx: val.length });
-    if (val.length === 6) this.checkPwd(val);
+    this.setData({ inputValue: e.detail.value, error: '' });
   },
-  checkPwd(val) {
-    // 读取本地存储的密码，首次无则为123456
-    const correct = wx.getStorageSync('unlock_pwd') || '123456';
-    if (val === correct) {
-      wx.setStorageSync('unlocked', true);
-      wx.redirectTo({ url: '/pages/admin/home/index' });
-    } else {
-      this.setData({ error: '密码错误', pwd: '', pwdInput: ['', '', '', '', '', ''], focusIdx: 0 });
-    }
-  },
-  onFocus() {
-    this.setData({ focusIdx: this.data.pwd.length });
-  },
+  onSubmit() {
+    const val = (this.data.inputValue || '').trim();
+    if (!val) { this.setData({ error: '请输入密码' }); return; }
+    const request = require('../../utils/request.js');
+    request.post('/admin/login', { password: val })
+      .then((data) => {
+        const token = data && data.token;
+        if (token) {
+          wx.setStorageSync('token', token);
+          wx.setStorageSync('unlocked', true);
+          wx.redirectTo({ url: '/pages/admin/home/index' });
+        } else {
+          this.setData({ error: '登录失败' });
+        }
+      })
+      .catch((err) => {
+        console.error('unlock login err', err);
+        const msg = (err && err.message) || (err && err.msg) || '登录失败';
+        this.setData({ error: msg });
+      });
+  }
 });

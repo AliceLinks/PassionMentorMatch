@@ -1,2 +1,227 @@
-.container{ padding:16px; }
-.btn{ margin:8px 0; background:#07c160; color:#fff; }
+.container {
+    padding: 16px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.picker {
+    padding: 8px 12px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+/* new week header styles (match course page) */
+.week-nav-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 0 12px;
+}
+
+.nav-btn {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.week-start {
+    font-size: 13px;
+    color: #666;
+    padding: 6px 8px;
+}
+
+.week-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.day-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 14.28%;
+    padding: 6px 0;
+    border-radius: 6px;
+}
+
+.day-item.active {
+    background-color: #f0f9f4;
+    border: 1px solid #07c160;
+}
+
+.week-day {
+    font-size: 12px;
+    color: #666;
+}
+
+.date-num {
+    font-size: 14px;
+    color: #222;
+    font-weight: 600;
+}
+
+/* day navigation (top bar) */
+.daynav {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 8px;
+}
+
+.daybtn {
+    width: 96px;
+    padding: 8px;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #eee;
+}
+
+.daybtn.active {
+    background: #007aff;
+    color: #fff;
+    border-color: #007aff;
+}
+
+.weekday {
+    font-size: 12px;
+    color: #666;
+}
+
+.daynum {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.courses .card {
+    background: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.card-row.small {
+    font-size: 13px;
+    color: #666;
+}
+
+.date {
+    font-weight: 600;
+}
+
+.time {
+    color: #888;
+}
+
+.empty {
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+}
+
+.overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    width: 92%;
+    max-height: 84%;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.title {
+    font-weight: 600;
+}
+
+.filters {
+    padding: 8px 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 6px 10px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+}
+
+.filter-btn.active {
+    background: #007aff;
+    color: #fff;
+    border-color: #007aff;
+}
+
+.list {
+    padding: 8px 12px;
+    overflow: auto;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.info {
+    flex: 1;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.phone {
+    color: #666;
+    font-size: 13px;
+}
+
+.meta {
+    color: #999;
+    font-size: 12px;
+}
+
+.actions button {
+    margin-left: 8px;
+}

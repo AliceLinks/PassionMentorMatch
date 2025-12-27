@@ -48,8 +48,11 @@ public class UserCardController {
             m.put("status", c.getStatus());
             m.put("start_date", c.getStartDate() == null ? "" : DF.format(c.getStartDate()));
             m.put("end_date", c.getEndDate() == null ? "" : DF.format(c.getEndDate()));
+            m.put("real_name_image", c.getRealNameImage());
             // 可选：是否当前有效
-            boolean active = "active".equalsIgnoreCase(c.getStatus()) && ("lifetime".equals(c.getCardType()) || (c.getStartDate() != null && c.getEndDate() != null && !today.before(c.getStartDate()) && !today.after(c.getEndDate())));
+            boolean active = "active".equalsIgnoreCase(c.getStatus())
+                    && ("lifetime".equals(c.getCardType()) || (c.getStartDate() != null && c.getEndDate() != null
+                            && !today.before(c.getStartDate()) && !today.after(c.getEndDate())));
             m.put("active", active);
             list.add(m);
         }
@@ -57,9 +60,12 @@ public class UserCardController {
     }
 
     private String parseToken(String authorization, String xAuthToken) {
-        if (authorization != null && authorization.startsWith("Bearer ")) return authorization.substring(7);
-        if (xAuthToken != null && !xAuthToken.isEmpty()) return xAuthToken;
-        if (authorization != null && authorization.startsWith("Basic ")) return null;
+        if (authorization != null && authorization.startsWith("Bearer "))
+            return authorization.substring(7);
+        if (xAuthToken != null && !xAuthToken.isEmpty())
+            return xAuthToken;
+        if (authorization != null && authorization.startsWith("Basic "))
+            return null;
         return authorization;
     }
 }

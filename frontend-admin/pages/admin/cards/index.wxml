@@ -1,0 +1,25 @@
+<view class="card-issue-form">
+    <view class="form-item">
+        <text>手机号：</text>
+        <input type="text" placeholder="请输入手机号" bindinput="onPhoneInput" value="{{phone}}" />
+    </view>
+    <view class="form-item">
+        <text>卡类型：</text>
+        <picker mode="selector" range="{{cardTypeOptions}}" bindchange="onCardTypeChange">
+            <view class="picker">{{cardTypeOptions[cardTypeIndex]}}</view>
+        </picker>
+    </view>
+    <view class="form-item">
+        <text>起始日期：</text>
+        <picker mode="date" value="{{startDate}}" bindchange="onStartDateChange">
+            <view class="picker">{{startDate}}</view>
+        </picker>
+    </view>
+    <view class="form-item">
+        <text>实名头像：</text>
+        <button type="default" bindtap="onChooseImage">选择图片</button>
+        <image wx:if="{{realNameImage}}" src="{{realNameImage}}" style="width:80px;height:80px;margin-left:16rpx;" />
+    </view>
+    <button type="primary" bindtap="onIssueCard">发放导师卡</button>
+    <!-- 结果提示已使用微信 toast，无需持久显示 -->
+</view>

@@ -5,7 +5,9 @@ Page({
     user: wx.getStorageSync('userInfo') || { realName: '游客' },
     cards: [],
     recommend: [],
-    stats: { courseCount: 0 }
+    stats: { courseCount: 0 },
+    roadmapImg: '',
+    courseIntro: ''
   },
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -42,6 +44,14 @@ Page({
         });
       })
       .catch(() => {});
+
+    // 拉取路线图和课程介绍
+    api.get('/config').then(cfg => {
+      this.setData({
+        roadmapImg: cfg.roadmapImg || '',
+        courseIntro: cfg.courseIntro || ''
+      });
+    }).catch(() => {});
   },
   getWeekStart() {
     const now = new Date();
@@ -75,6 +85,12 @@ Page({
             });
         }
       }
+    });
+  },
+  goCourseIntro() {
+    const url = encodeURIComponent(this.data.courseIntro);
+    wx.navigateTo({
+      url: `/pages/webview/index?url=${url}`
     });
   }
 });

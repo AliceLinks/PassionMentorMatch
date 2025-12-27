@@ -1,7 +1,7 @@
 const app = getApp();
 const api = require('../../../utils/request.js');
 Page({
-  data: { date:'', start:'', end:'', teacher:'', dance:'', capacity:'', items:[] },
+  data: { date:'', start:'', end:'', teacher:'', dance:'', capacity:'', needCard:true, items:[] },
   onDate(e){ this.setData({ date: e.detail.value }); },
   onStart(e){ this.setData({ start: e.detail.value }); },
   onEnd(e){ this.setData({ end: e.detail.value }); },
@@ -11,6 +11,9 @@ Page({
   onTeacher(e){ this.setData({ teacher: e.detail.value }); },
   onDance(e){ this.setData({ dance: e.detail.value }); },
   onCapacity(e){ this.setData({ capacity: e.detail.value }); },
+  onNeedCardChange(e) {
+    this.setData({ needCard: e.detail.value });
+  },
   /**
    * 校验单个课程项的表单字段
    */
@@ -47,14 +50,15 @@ Page({
   },
   addItem(){
     console.log('addItem 调用', this.data); // 调试输出
-    const { date, start, end, teacher, dance, capacity } = this.data;
+    const { date, start, end, teacher, dance, capacity, needCard } = this.data;
     const item = {
       course_date: date,
       start_time: start,
       end_time: end,
       teacher,
       dance_type: dance,
-      capacity: Number(capacity)
+      capacity: Number(capacity),
+      needCard: !!needCard
     };
     const res = this.validateForm(item);
     if (!res.valid) {
@@ -63,7 +67,7 @@ Page({
     }
     const items = this.data.items.slice();
     items.push(item);
-    this.setData({ items, date:'', start:'', end:'', teacher:'', dance:'', capacity:'' });
+    this.setData({ items, date:'', start:'', end:'', teacher:'', dance:'', capacity:'', needCard:true });
   },
   removeItem(e){
     const idx = e.currentTarget.dataset.index;

@@ -4,7 +4,8 @@ Page({
     id: '',
     title: '',
     time: '',
-    loading: false
+    loading: false,
+    needCard: true
   },
   onLoad(query) {
     if(query && query.id){
@@ -32,7 +33,8 @@ Page({
           const minDate = `${yyyy}-${mm}-${dd}`;
           this.setData({
             course_date:item.course_date||'', start_time:item.start_time||'', end_time:item.end_time||'',
-            teacher:item.teacher||'', dance_type:item.dance_type||'', capacity:item.capacity||'', pickerMinDate:minDate
+            teacher:item.teacher||'', dance_type:item.dance_type||'', capacity:item.capacity||'', pickerMinDate:minDate,
+            needCard: typeof item.need_card === 'boolean' ? item.need_card : (item.needCard !== undefined ? item.needCard : true)
           });
         } else {
           wx.showToast({ title:'未找到课程', icon:'none' });
@@ -43,6 +45,9 @@ Page({
         wx.showToast({ title:'获取课程失败', icon:'none' })
       });
   },
+    onNeedCardChange(e) {
+      this.setData({ needCard: e.detail.value });
+    },
   onDate(e){ this.setData({ course_date: e.detail.value }); },
   onDatePick(e){ this.setData({ course_date: e.detail.value }); },
   onStart(e){ this.setData({ start_time: e.detail.value }); },
@@ -68,7 +73,8 @@ Page({
       capacity: Number(this.data.capacity),
       course_date: this.data.course_date,
       start_time: this.data.start_time,
-      end_time: this.data.end_time
+      end_time: this.data.end_time,
+      needCard: this.data.needCard
     }).then(res => {
       wx.showToast({ title: (res.message || '保存成功'), icon:'none' });
       wx.navigateBack({ delta: 1 });

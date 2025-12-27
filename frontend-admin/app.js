@@ -2,6 +2,12 @@ const api = require('./utils/request.js');
 
 App({
   onLaunch() {
+    // 初始化云开发环境
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: 'cloud1-8gzef1rzcda5e9d2'
+      });
+    }
     // 可在此初始化全局数据或做健康检查
     this.globalData.language = 'zh';
     this.globalData.adminInfo = wx.getStorageSync('adminInfo') || {

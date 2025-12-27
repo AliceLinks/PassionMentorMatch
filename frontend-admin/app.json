@@ -7,7 +7,9 @@
     "pages/admin/checkin/index",
     "pages/admin/manage/index",
     "pages/admin/manageEdit/index",
-    "pages/admin/roster/index"
+    "pages/admin/roster/index",
+    "pages/admin/cards/index",
+    "pages/admin/contentManage/index"
   ],
   "window": {
     "navigationBarTitleText": "Passion 管理端",

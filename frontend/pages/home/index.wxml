@@ -35,4 +35,25 @@
       </view>
     </view>
   </view>
+
+  <!-- 课程介绍展示 -->
+  <view class="card">
+    <view class="card-body">
+      <view class="section-title">课程介绍</view>
+      <view wx:if="{{courseIntro}}">
+        <button class="link" bindtap="goCourseIntro">点击查看课程介绍</button>
+      </view>
+      <view wx:if="{{!courseIntro}}" class="muted">暂无课程介绍</view>
+    </view>
+  </view>
+
+  <!-- 路线图展示 -->
+  <view class="card">
+    <view class="card-body">
+      <view class="section-title">路线图</view>
+      <image wx:if="{{roadmapImg}}" src="{{roadmapImg}}" mode="widthFix" style="width:100%;margin:12rpx 0;" />
+      <view wx:if="{{!roadmapImg}}" class="muted">暂无路线图</view>
+    </view>
+  </view>
+  
 </view>

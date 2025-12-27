@@ -6,7 +6,6 @@ Page({
     phone: '',
     password: '',
     realName: '',
-    avatarUrl: '',
     defaultAvatarUrl: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
     loading: false
   },
@@ -19,13 +18,9 @@ Page({
   onNameInput(e) {
     this.setData({ realName: e.detail.value });
   },
-  onChooseAvatar(e) {
-    const avatarUrl = e.detail && e.detail.avatarUrl;
-    if (avatarUrl) this.setData({ avatarUrl });
-  },
   onRegister() {
     if (this.data.loading) return;
-    const { phone, password, realName, avatarUrl, defaultAvatarUrl } = this.data;
+    const { phone, password, realName, defaultAvatarUrl } = this.data;
     if (!phone || !password || !realName) {
       wx.showToast({ title: '请填写姓名、手机号和密码', icon: 'none' });
       return;
@@ -35,7 +30,7 @@ Page({
       phone,
       password,
       realName,
-      avatar: avatarUrl || defaultAvatarUrl
+      avatar: defaultAvatarUrl
     })
       .then(() => {
         wx.showToast({ title: '注册成功', icon: 'success' });

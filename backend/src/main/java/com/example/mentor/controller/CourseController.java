@@ -63,6 +63,8 @@ public class CourseController {
             m.put("status", c.getStatus());
             m.put("week_number", c.getWeekNumber());
             m.put("reserved", reservedIds.contains(c.getId()));
+            // 新增 need_card 字段，便于前端回显
+            m.put("need_card", c.getNeedCard());
             Long rid = reservationIdByCourse.get(c.getId());
             if (rid != null) { m.put("reservation_id", String.valueOf(rid)); }
             return m;
@@ -243,7 +245,7 @@ public class CourseController {
         if (id == null) return Result.buildFailure(400, "课程ID不能为空");
         Course c = courseMapper.selectById(id);
         if (c == null) return Result.buildFailure(404, "课程不存在");
-        // 允许更新的字段：日期/时间/教师/舞种/容量/状态
+        // 允许更新的字段：日期/时间/教师/舞种/容量/状态/needCard
         try {
             if (body.containsKey("course_date")) {
                 java.time.LocalDate cd = java.time.LocalDate.parse(String.valueOf(body.get("course_date")));
@@ -261,6 +263,16 @@ public class CourseController {
             if (body.containsKey("dance_type")) c.setDanceType(String.valueOf(body.get("dance_type")));
             if (body.containsKey("capacity")) c.setCapacity(Integer.valueOf(String.valueOf(body.get("capacity"))));
             if (body.containsKey("status")) c.setStatus(String.valueOf(body.get("status")));
+            // 新增 needCard 字段支持
+            if (body.containsKey("needCard")) {
+                Object v = body.get("needCard");
+                if (v instanceof Boolean) c.setNeedCard((Boolean)v);
+                else if (v instanceof String) c.setNeedCard(Boolean.valueOf((String)v));
+            } else if (body.containsKey("need_card")) {
+                Object v = body.get("need_card");
+                if (v instanceof Boolean) c.setNeedCard((Boolean)v);
+                else if (v instanceof String) c.setNeedCard(Boolean.valueOf((String)v));
+            }
             // 简单校验
             if (c.getStartTime()!=null && c.getEndTime()!=null && c.getStartTime().after(c.getEndTime())) {
                 return Result.buildFailure(400, "结束时间必须晚于开始时间");

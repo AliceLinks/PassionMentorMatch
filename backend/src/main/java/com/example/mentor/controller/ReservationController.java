@@ -121,19 +121,21 @@ public class ReservationController {
         if (course == null) {
             return ResponseEntity.badRequest().body(Result.buildFailure(400, "BAD_REQUEST", "课程不存在"));
         }
-        // 校验导师卡有效
-        java.util.Date today = new java.util.Date();
-        java.util.List<com.example.mentor.dao.entity.Card> cards = cardMapper.selectList(
-                new LambdaQueryWrapper<com.example.mentor.dao.entity.Card>().eq(com.example.mentor.dao.entity.Card::getUserId, ut.getUserId())
-        );
-        boolean hasValidCard = false;
-        for (com.example.mentor.dao.entity.Card c : cards) {
-            boolean active = "active".equalsIgnoreCase(c.getStatus()) && ("lifetime".equals(c.getCardType())
-                    || (c.getStartDate() != null && c.getEndDate() != null && !today.before(c.getStartDate()) && !today.after(c.getEndDate())));
-            if (active) { hasValidCard = true; break; }
-        }
-        if (!hasValidCard) {
-            return ResponseEntity.status(403).body(Result.buildFailure(403, "FORBIDDEN", "无有效导师卡"));
+        // 校验导师卡有效（仅当课程需要导师卡时）
+        if (Boolean.TRUE.equals(course.getNeedCard())) {
+            java.util.Date today = new java.util.Date();
+            java.util.List<com.example.mentor.dao.entity.Card> cards = cardMapper.selectList(
+                    new LambdaQueryWrapper<com.example.mentor.dao.entity.Card>().eq(com.example.mentor.dao.entity.Card::getUserId, ut.getUserId())
+            );
+            boolean hasValidCard = false;
+            for (com.example.mentor.dao.entity.Card c : cards) {
+                boolean active = "active".equalsIgnoreCase(c.getStatus()) && ("lifetime".equals(c.getCardType())
+                        || (c.getStartDate() != null && c.getEndDate() != null && !today.before(c.getStartDate()) && !today.after(c.getEndDate())));
+                if (active) { hasValidCard = true; break; }
+            }
+            if (!hasValidCard) {
+                return ResponseEntity.status(403).body(Result.buildFailure(403, "FORBIDDEN", "无有效导师卡"));
+            }
         }
 
         // 冲突校验：同一天时间段存在预约则拒绝

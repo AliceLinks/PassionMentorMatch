@@ -29,4 +29,16 @@ public class Result<T> {
     public static <T> Result<T> buildFailure(int code, String errorCode, String message) {
         return new Result<>(code, message, null, errorCode);
     }
+
+    public static <T> Result<T> success() {
+        return buildSuccess(null);
+    }
+
+    public static <T> Result<T> success(T data) {
+        return buildSuccess(data);
+    }
+
+    public static <T> Result<T> fail(String message) {
+        return buildFailure(400, message);
+    }
 }

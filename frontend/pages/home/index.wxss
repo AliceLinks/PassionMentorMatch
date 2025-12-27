@@ -8,7 +8,10 @@
 .actions { display:flex; gap:12rpx; margin-top:12rpx; }
 .rec-item { display:grid; grid-template-columns: 1fr auto; align-items:center; padding:8rpx 0; border-top:1rpx solid #f0f0f0; }
 .rec-item:first-child { border-top:none; }
+
 .rec-title { font-size:30rpx;font-weight:600; }
 .rec-time { font-size:24rpx; }
+.section-title { font-size:28rpx; font-weight:600; margin-bottom:8rpx; }
+.link { color: #07c160; text-decoration: underline; }
 
 

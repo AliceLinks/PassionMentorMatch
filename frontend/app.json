@@ -6,7 +6,8 @@
     "pages/profile/edit",
     "pages/my-reservations/index",  
     "pages/login/index",
-    "pages/register/index"         
+    "pages/register/index",
+    "pages/webview/index"
   ],
   "window": {
     "navigationBarTitleText": "Passion街舞社",

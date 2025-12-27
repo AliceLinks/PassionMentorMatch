@@ -53,5 +53,12 @@ module.exports = {
   get: (url, data) => request(url, 'GET', data),
   post: (url, data) => request(url, 'POST', data),
   put: (url, data) => request(url, 'PUT', data),
-  del: (url, data) => request(url, 'DELETE', data)
+  del: (url, data) => request(url, 'DELETE', data),
+  getBaseUrl: () => BASE_URL.replace(/\/api$/, ''),
+  getUploadHeaders: () => {
+    const token = wx.getStorageSync('token');
+    const h = {};
+    if (token) h['X-Auth-Token'] = token;
+    return h;
+  }
 };

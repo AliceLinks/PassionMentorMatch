@@ -15,9 +15,16 @@ spring:
       validationTimeout: 5000
   sql:
     init:
-      mode: ${SQL_INIT_MODE:never}
+      mode: never
       schema-locations: classpath:schema.sql
       data-locations: classpath:iniData.sql
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+  web:
+    resources:
+      static-locations: classpath:/static/,file:./upload/
 
 mybatis-plus:
   configuration:
@@ -26,8 +33,8 @@ mybatis-plus:
 
 wechat:
   # 支持通过环境变量覆盖，避免被空环境变量覆盖时取空
-  appid: ${WECHAT_APPID:wxc94d87ddbdbd829a}
-  secret: ${WECHAT_SECRET:8ea079ec73fad23ac13265e9b5bfbe77}
+  appid: ${WECHAT_APPID:wxedbe3316f59e84c5}
+  secret: ${WECHAT_SECRET:77d2a66e0fdd3d6a50298a1c4931a2f9}
   insecure: ${WECHAT_SSL_INSECURE:false}
 
 auth:
