@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="hero">
+    <view class="hero-title">管理员总览</view>
+    <view class="hero-sub">快速进入常用功能</view>
+  </view>
+  <view class="grid">
+    <view class="card" bindtap="goManageCourses">
+      <view class="card-icon">⚙️</view>
+      <view class="card-title">课程管理</view>
+      <view class="card-sub">取消或编辑已发布课程</view>
+    </view>
+    <view class="card" bindtap="goCourses">
+      <view class="card-icon">📦</view>
+      <view class="card-title">批量发布课程</view>
+      <view class="card-sub">创建并发布一周课程</view>
+    </view>
+    <view class="card" bindtap="goCardIssue">
+      <view class="card-icon">🎫</view>
+      <view class="card-title">导师卡发放</view>
+      <view class="card-sub">发放/更新导师卡</view>
+    </view>
+    <view class="card" bindtap="goCheckin">
+      <view class="card-icon">✅</view>
+      <view class="card-title">签到核销</view>
+      <view class="card-sub">查询并核销</view>
+    </view>
+    <view class="card" bindtap="goContentManage">
+      <view class="card-icon">🖼️</view>
+      <view class="card-title">内容管理</view>
+      <view class="card-sub">路线图/课程介绍维护</view>
+    </view>
+  </view>
+  <button class="logout-btn" type="default" bindtap="onLogout">退出登录</button>
+</view>

@@ -2,6 +2,7 @@ const api = require('../../utils/request.js');
 
 Page({
   data: {
+    logoUrl: 'http://127.0.0.1:8080/upload/logo.png',
     user: wx.getStorageSync('userInfo') || { realName: '游客' },
     cards: [],
     recommend: [],

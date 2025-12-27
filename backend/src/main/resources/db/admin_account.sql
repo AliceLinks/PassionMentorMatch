@@ -1,4 +1,8 @@
 -- Minimal admin_account and admin_token tables
+USE mentor;
+DROP TABLE IF EXISTS admin_token;
+DROP TABLE IF EXISTS admin_account;
+
 CREATE TABLE IF NOT EXISTS admin_account (
   id INT PRIMARY KEY AUTO_INCREMENT,
   password_hash VARCHAR(255) NOT NULL

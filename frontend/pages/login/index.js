@@ -1,5 +1,3 @@
-// pages/login/index.js
-  // pages/login/index.js
 const app = getApp();
 const api = require('../../utils/request.js');
 

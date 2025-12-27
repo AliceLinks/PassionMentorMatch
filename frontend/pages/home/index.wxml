@@ -1,7 +1,13 @@
 <view class="container">
   <view class="hero">
-    <view class="title">Passion 导师课</view>
-    <view class="subtitle">数字化导师卡 · 在线约课与签到</view>
+    <view class="hero-left">
+      <image class="hero-logo" src="{{logoUrl}}" mode="aspectFill" />
+    </view>
+    <view class="hero-right">
+      <view class="hero-badge">PASSION STREET DANCE</view>
+      <view class="hero-title">导师课 · 预约系统</view>
+      <view class="hero-sub">Beat the floor, not the queue.</view>
+    </view>
   </view>
 
   <view class="grid">

@@ -1,0 +1,6 @@
+<view class="container">
+  <button class="btn" bindtap="onScan">扫码核销</button>
+  <view wx:if="{{scanResult}}" class="scan-tip">已扫码：{{scanResult}}</view>
+  <input placeholder="预约ID" bindinput="onRid" />
+  <button class="btn" bindtap="onCheckin">签到核销</button>
+</view>

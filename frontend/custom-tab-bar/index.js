@@ -1,5 +1,6 @@
 Component({
   data: {
+    visible: true,
     selected: 0,
     list: [
       { pagePath: "/pages/home/index", text: "主页", icon: "🏠" },

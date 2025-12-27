@@ -7,7 +7,16 @@
     "pages/my-reservations/index",  
     "pages/login/index",
     "pages/register/index",
-    "pages/webview/index"
+    "pages/webview/index",
+    "pages/admin/login/index",
+    "pages/admin/home/index",
+    "pages/admin/courses/index",
+    "pages/admin/checkin/index",
+    "pages/admin/manage/index",
+    "pages/admin/manageEdit/index",
+    "pages/admin/roster/index",
+    "pages/admin/cards/index",
+    "pages/admin/contentManage/index"
   ],
   "window": {
     "navigationBarTitleText": "Passion街舞社",

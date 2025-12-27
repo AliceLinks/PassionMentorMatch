@@ -33,7 +33,7 @@ mybatis-plus:
 
 wechat:
   # 支持通过环境变量覆盖，避免被空环境变量覆盖时取空
-  appid: ${WECHAT_APPID:wxedbe3316f59e84c5}
+  appid: ${WECHAT_APPID:wx4e9ac0fa4f3c2244}
   secret: ${WECHAT_SECRET:77d2a66e0fdd3d6a50298a1c4931a2f9}
   insecure: ${WECHAT_SSL_INSECURE:false}
 

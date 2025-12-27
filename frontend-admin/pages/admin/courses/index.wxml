@@ -23,13 +23,10 @@
     <view class="field"><text class="label">导师</text><input class="input" placeholder="如：王老师" bindinput="onTeacher" /></view>
     <view class="field"><text class="label">舞种</text><input class="input" placeholder="如：Jazz" bindinput="onDance" /></view>
     <view class="field"><text class="label">容量</text><input class="input" placeholder="人数（正整数）" type="number" bindinput="onCapacity" /></view>
-<<<<<<< HEAD
-=======
     <view class="field">
       <text class="label">需要导师卡</text>
       <switch checked="{{needCard}}" bindchange="onNeedCardChange" />
     </view>
->>>>>>> 6407e5df47083544d883b35ea792cae73d2ecefc
     <button class="primary" bindtap="addItem">添加到本次批量</button>
   </view>
 

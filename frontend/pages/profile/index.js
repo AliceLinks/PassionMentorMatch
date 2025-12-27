@@ -3,84 +3,101 @@ const app = getApp();
 
 Page({
   data: {
+    user: {
+      avatar: "https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0",
+      nickname: "游客",
+      points: 0,
+      level: 1
+    },
+    hasToken: false,
     userInfo: null,
-    cards: [],
-    isAdminVisible: false
+    cards: []
+  },
+
+  onLoad() {
+    const u = wx.getStorageSync('userInfo');
+    if (u) {
+      this.setData({
+        user: { ...this.data.user, avatar: u.avatar, nickname: u.nickname }
+      });
+    }
   },
 
   onShow() {
+    const u = wx.getStorageSync('userInfo');
+    if (u) {
+      this.setData({
+        user: { ...this.data.user, avatar: u.avatar, nickname: u.nickname }
+      });
+    }
+    // 选中第三个 tab（索引 2）
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({ selected: 2 });
     }
-    // 移除手动高亮 tabBar
-    this.loadData();
-    // 控制管理员入口显示：有 ADMIN_TOKEN 或本地开关 SHOW_ADMIN 为真
-    const hasAdminToken = !!wx.getStorageSync('ADMIN_TOKEN');
-    const showAdminFlag = !!wx.getStorageSync('SHOW_ADMIN');
-    this.setData({ isAdminVisible: hasAdminToken || showAdminFlag });
+
+    const token = wx.getStorageSync('token');
+    const hasToken = !!token;
+    this.setData({ hasToken });
+
+    if (hasToken) {
+      this.loadData();
+    } else {
+      this.setData({ userInfo: null, cards: [] });
+    }
   },
 
   loadData() {
-    // 先确保登录拿到令牌，避免 401
-    const app = getApp();
-    const ensureLogin = app && typeof app.doLogin === 'function' ? app.doLogin() : Promise.resolve();
-    ensureLogin
-      .then(() => {
-        // 获取用户信息
-        return api.get('/user/profile');
-      })
-      .then(res => {
-        console.log('userInfo:', res, res.data);
-        this.setData({ userInfo: res.data || res });
-      })
-      .catch(() => {
-        // 未登录或失败时，引导登录
-        wx.navigateTo({ url: '/pages/login/index' });
+    const token = wx.getStorageSync('token');
+    if (!token) return;
+
+    // 获取用户信息
+    api.get('/user/profile').then(res => {
+      this.setData({
+        userInfo: res,
+        user: {
+          ...this.data.user,
+          avatar: res.avatar || this.data.user.avatar,
+          nickname: res.nickname || this.data.user.nickname
+        }
       });
-    // 获取导师卡（并行，登录后也能访问）
-    ensureLogin
-      .then(() => api.get('/user/cards'))
-      .then(res => {
-        this.setData({ cards: res || [] });
-      })
-      .catch(() => {
-        this.setData({ cards: [] });
-      });
+    });
+
+    // 获取导师卡
+    api.get('/user/cards').then(res => {
+      this.setData({ cards: res || [] });
+    });
   },
 
   goReservations() {
     wx.navigateTo({ url: '/pages/my-reservations/index' });
   },
 
-  // 简单的登录逻辑触发
+  // 点击“手机号登录 / 注册”
   handleLogin() {
-    if (!this.data.userInfo) {
-      wx.navigateTo({ url: '/pages/login/index' });
-    } 
+    wx.navigateTo({ url: '/pages/login/index' });
   },
 
-  goAdminHome() {
-    // 进入管理员总览页面
-    wx.navigateTo({ url: '/pages/admin/home/index' });
-  },
-  goProfileEdit() {
+  // 编辑个人资料
+  goEdit() {
     wx.navigateTo({ url: '/pages/profile/edit' });
-  }
-  ,
-  onAvatarError() {
-    const fallback = 'https://ts2.tc.mm.bing.net/th/id/OIP-C.p6hdmBEvZCMwVcWDVnQr0QAAAA?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3';
-    const ui = this.data.userInfo || {};
-    if (!ui.avatar || ui.avatar === fallback) return;
-    ui.avatar = fallback;
-    this.setData({ userInfo: ui });
   },
 
-  logout() {
-    wx.removeStorageSync('userInfo');
-    wx.removeStorageSync('token'); // 修正为小写
-    wx.removeStorageSync('TOKEN'); // 兼容历史
-    wx.removeStorageSync('ADMIN_TOKEN');
-    this.setData({ userInfo: null });
-    wx.redirectTo({ url: '/pages/login/index' });
+  goAdmin() {
+    wx.navigateTo({ url: '/pages/admin/login/index' });
   },
+
+  // 退出登录（可选加一个）
+  logout() {
+    wx.removeStorageSync('token');
+    wx.removeStorageSync('userInfo');
+    this.setData({
+      hasToken: false,
+      userInfo: null,
+      cards: [],
+      user: {
+        ...this.data.user,
+        nickname: '游客'
+      }
+    });
+  }
 });

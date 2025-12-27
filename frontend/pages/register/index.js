@@ -39,7 +39,8 @@ Page({
         }, 1000);
       })
       .catch(err => {
-        wx.showToast({ title: err?.message || '注册失败', icon: 'none' });
+        const msg = (err && err.message) ? err.message : '注册失败';
+        wx.showToast({ title: msg, icon: 'none' });
       })
       .finally(() => this.setData({ loading: false }));
   }

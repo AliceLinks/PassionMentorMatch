@@ -1,42 +1,42 @@
 {
-  "miniprogramRoot": "",
-  "projectname": "Passion管理端",
-  "appid": "wx4e9ac0fa4f3c2244",
-  "description": "Passion Mentor 管理员小程序",
-  "setting": {
-    "es6": true,
-    "postcss": false,
-    "compileWorklet": true,
-    "minified": false,
-    "uglifyFileName": false,
-    "uploadWithSourceMap": true,
-    "enhance": true,
-    "packNpmManually": false,
-    "packNpmRelationList": [],
-    "minifyWXSS": true,
-    "minifyWXML": false,
-    "localPlugins": false,
-    "disableUseStrict": false,
-    "useCompilerPlugins": false,
-    "condition": false,
-    "swc": false,
-    "disableSWC": true,
-    "babelSetting": {
-      "ignore": [],
-      "disablePlugins": [],
-      "outputPath": ""
-    }
-  },
-  "compileType": "miniprogram",
-  "simulatorPluginLibVersion": {},
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
-  "editorSetting": {
-    "tabIndent": "insertSpaces",
-    "tabSize": 2
-  },
-  "condition": {},
-  "libVersion": "3.12.1"
+    "miniprogramRoot": "",
+    "projectname": "Passion管理端",
+    "appid": "wx4e9ac0fa4f3c2244",
+    "description": "Passion Mentor 管理员小程序",
+    "setting": {
+        "es6": true,
+        "postcss": false,
+        "compileWorklet": true,
+        "minified": false,
+        "uglifyFileName": false,
+        "uploadWithSourceMap": true,
+        "enhance": true,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "minifyWXML": false,
+        "localPlugins": false,
+        "disableUseStrict": false,
+        "useCompilerPlugins": false,
+        "condition": false,
+        "swc": false,
+        "disableSWC": true,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        }
+    },
+    "compileType": "miniprogram",
+    "simulatorPluginLibVersion": {},
+    "packOptions": {
+        "ignore": [],
+        "include": []
+    },
+    "editorSetting": {
+        "tabIndent": "insertSpaces",
+        "tabSize": 2
+    },
+    "condition": {},
+    "libVersion": "3.12.1"
 }

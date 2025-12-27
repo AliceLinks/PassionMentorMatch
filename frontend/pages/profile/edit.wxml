@@ -2,17 +2,18 @@
   <view class="section">
     <view class="section-header"><text>头像与资料</text></view>
     <view class="profile-edit">
-      <view class="avatar-wrapper">
-        <image class="avatar" src="{{avatarUrl}}" binderror="onAvatarError"></image>
-      </view>
-      <input class="nick-input" placeholder="请输入姓名" value="{{realName}}" bindinput="onRealNameInput" />
+      <button class="avatar-btn"
+        open-type="chooseAvatar"
+        bindchooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" />
+      </button>
+      <input class="nick-input" placeholder="请输入昵称" value="{{nickname}}" bindinput="onNicknameInput" />
+      <input class="nick-input" placeholder="请输入姓名" value="{{real_name}}" bindinput="onRealNameInput" />
       <input class="nick-input" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" />
-      <view class="pwd-section">
-        <view class="pwd-title">修改密码</view>
-        <input class="nick-input" type="password" placeholder="原密码" value="{{oldPwd}}" bindinput="onOldInput" />
-        <input class="nick-input" type="password" placeholder="新密码" value="{{newPwd}}" bindinput="onNewInput" />
-        <input class="nick-input" type="password" placeholder="确认新密码" value="{{confirmPwd}}" bindinput="onConfirmInput" />
-      </view>
+
+      <input class="nick-input" placeholder="原密码（不改可留空）" password="true" bindinput="onOldPwdInput" />
+      <input class="nick-input" placeholder="新密码（至少6位）" password="true" bindinput="onNewPwdInput" />
+      
       <view class="actions"><button class="btn" bindtap="onSave">保存</button></view>
     </view>
   </view>

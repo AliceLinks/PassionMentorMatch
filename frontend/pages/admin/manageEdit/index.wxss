@@ -1,0 +1,8 @@
+.container{ padding:24rpx; background:#f7f8fa; min-height:100vh; }
+.card{ background:#fff; border-radius:16rpx; padding:24rpx; box-shadow:0 6rpx 16rpx rgba(0,0,0,0.06); }
+.card-title{ font-size:32rpx; font-weight:700; margin-bottom:16rpx; }
+.field{ display:flex; align-items:center; gap:12rpx; margin-bottom:16rpx; }
+.label{ width:180rpx; color:#666; }
+.input{ flex:1; background:#fff; border:1rpx solid #eee; border-radius:8rpx; padding:12rpx; }
+.picker-value{ flex:1; background:#fff; border:1rpx solid #eee; border-radius:8rpx; padding:12rpx; color:#333; }
+.primary{ background:#07c160; color:#fff; border-radius:999rpx; }
