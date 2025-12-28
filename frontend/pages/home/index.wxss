@@ -96,7 +96,6 @@ button.btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* ...已有样式... */
 }
 
 

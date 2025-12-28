@@ -93,75 +93,103 @@ page {
 }
 
 /* 通用按钮体系 */
-button[type="primary"],
-button.primary,
-button.btn,
-.btn,
 .btn-primary,
+button[type="primary"],
 .primary {
-  background: linear-gradient(90deg, #ff6a00, #ffb86b) !important;
-  color: #0f1724 !important;
-  border: none !important;
-  font-weight: 700;
-  border-radius: 999rpx;
-  box-shadow: 0 12rpx 36rpx rgba(255,120,40,0.12);
   height: 88rpx;
   line-height: 88rpx;
+  padding: 0 44rpx;
+
+  background: #ffffff;
+  color: #ff7a18;
+
   font-size: 30rpx;
-  transition: background 0.3s;
+  font-weight: 700;
+  letter-spacing: 1rpx;
+
+  border-radius: 20rpx;
+  border: 3rpx solid #ff7a18;
+
+  /* 双层结构感 */
+  box-shadow:
+    0 10rpx 28rpx rgba(255, 122, 24, 0.35),
+    inset 0 0 0 2rpx rgba(255, 184, 107, 0.45);
+
+  transition: all 0.18s ease;
 }
 
-button[type="primary"]:active,
-button.primary:active,
-button.btn:active,
-.btn:active,
-.btn-primary:active,
-.primary:active {
-  opacity: 0.95;
-}
-
-/* 注释掉原有绿色按钮样式
-.btn {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.btn:active {
-  background: linear-gradient(135deg, #16a34a, #15803d);
-}
-*/
-
-/* 次按钮：灰 + 细边框 */
-.btn-secondary {
+.btn-primary:active {
+  transform: translateY(2rpx);
   background: #fff7ed;
-  color: #ff6a00;
-  border: 1rpx solid #ffb86b;
-  border-radius: 999rpx;
+  box-shadow:
+    0 6rpx 16rpx rgba(255, 122, 24, 0.45),
+    inset 0 0 0 2rpx rgba(255, 184, 107, 0.65);
+}
+
+/* 次按钮 */
+.btn-secondary {
+  height: 82rpx;
+  line-height: 82rpx;
+  padding: 0 40rpx;
+
+  background: transparent;
+  color: #ff7a18;
+
+  font-size: 28rpx;
+  font-weight: 600;
+
+  border-radius: 18rpx;
+  border: 2.5rpx solid #ffb86b;
+
+  box-shadow:
+    0 4rpx 12rpx rgba(255, 184, 107, 0.25);
+
+  transition: all 0.15s ease;
 }
 
 .btn-secondary:active {
-  background: #e5e7eb;
+  background: #fff7ed;
+  box-shadow:
+    0 6rpx 16rpx rgba(255, 184, 107, 0.35);
 }
 
-/* 导航按钮：浅蓝背景，用于“查看详情”、“内容管理”等 */
+/* 导航按钮 */
 .btn-navigate {
-  background: #e0f2fe;
-  color: #0c4a6e;
+  height: 74rpx;
+  line-height: 74rpx;
+  padding: 0 34rpx;
+
+  background: #ffffff;
+  color: #f97316;
+
+  font-size: 26rpx;
+  font-weight: 600;
+
+  border-radius: 16rpx;
+  border: 2rpx solid #f97316;
+
+  box-shadow:
+    0 6rpx 18rpx rgba(249, 115, 22, 0.25);
 }
 
 .btn-navigate:active {
-  background: #bae6fd;
+  background: #fff7ed;
 }
 
 /* 禁用按钮 */
 .btn-disabled {
-  background: #e5e7eb;
+  height: 80rpx;
+  line-height: 80rpx;
+
+  background: #f9fafb;
   color: #9ca3af;
+
+  border-radius: 18rpx;
+  border: 2rpx solid #e5e7eb;
+
+  box-shadow: none;
 }
-.btn-disabled:active {
-  background: #e5e7eb;
-}
+
 
 /* 课程列表样式（约课页复用） */
 .week-header {

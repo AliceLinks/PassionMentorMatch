@@ -2,17 +2,54 @@
   margin-top: 16rpx;
 }
 .profile-header {
-  background: linear-gradient(135deg, #07c160 0%, #22c55e 50%, #a7f3d0 100%);
-  border-radius: 16rpx;
-  padding: 24rpx;
+  position: relative;
+  margin-bottom: 32rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 12rpx 32rpx rgba(0,0,0,0.10);
+}
+.profile-swiper {
+  width: 100%;
+  height: 450rpx; /* 加高，展示感更强 */
+}
+.banner-img {
+  width: 100%;
+  height: 320rpx;
+  object-fit: cover;
+  display: block;
+}
+.profile-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  padding: 36rpx 32rpx 32rpx 32rpx;
+  background: rgba(20, 20, 28, 0.68);
+  backdrop-filter: blur(18rpx);
+  -webkit-backdrop-filter: blur(18rpx);
+  border-bottom-left-radius: 24rpx;
+  border-bottom-right-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.12);
+}
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.10);
+  margin-right: 24rpx;
+}
+.info {
+  flex: 1;
   color: #fff;
 }
-.profile-card {
-  display:flex;align-items:center;gap:16rpx;
+.name {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
 }
-.avatar { width:96rpx;height:96rpx;border-radius:50%; }
-.info { flex:1; }
-.name { font-size:32rpx;font-weight:600; }
 .meta { color:#e6fffb; }
 .quick-actions { display:flex;gap:16rpx;margin:16rpx 0; }
 .qa-item { flex:1;background:#fff;border-radius:12rpx;padding:16rpx;display:flex;flex-direction:column;align-items:center;gap:8rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,0.06); }

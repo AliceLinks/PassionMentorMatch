@@ -1,20 +1,29 @@
 <view class="page">
   <!-- 头部用户卡片 -->
-  <view class="header">
-    <image class="avatar" src="{{user.avatar}}" mode="aspectFill" />
-    <view class="info">
-      <view class="name">{{ user.nickname || '游客' }}</view>
-      <view class="sub" wx:if="{{userInfo && userInfo.phone}}">
-        手机号：{{ userInfo.phone }}
+  <view class="profile-header">
+    <swiper class="profile-swiper" indicator-dots autoplay circular interval="4000">
+      <block wx:for="{{bannerImages}}" wx:key="url">
+        <swiper-item>
+          <image class="banner-img" src="{{item}}" mode="aspectFill"/>
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="profile-info">
+      <image class="avatar" src="{{user.avatar}}" mode="aspectFill" />
+      <view class="info">
+        <view class="name">{{ user.nickname || '游客' }}</view>
+        <view class="sub" wx:if="{{userInfo && userInfo.phone}}">
+          手机号：{{ userInfo.phone }}
+        </view>
+        <view class="sub" wx:if="{{userInfo && userInfo.realName}}">
+          姓名：{{ userInfo.realName }}
+        </view>
+        <view class="sub" wx:else>
+          欢迎来到 Passion 导师课系统
+        </view>
+        <view class="status" wx:if="{{hasToken}}">已登录</view>
+        <view class="status guest" wx:else>未登录</view>
       </view>
-      <view class="sub" wx:if="{{userInfo && userInfo.realName}}">
-        姓名：{{ userInfo.realName }}
-      </view>
-      <view class="sub" wx:else>
-        欢迎来到 Passion 导师课系统
-      </view>
-      <view class="status" wx:if="{{hasToken}}">已登录</view>
-      <view class="status guest" wx:else>未登录</view>
     </view>
   </view>
 
@@ -27,12 +36,18 @@
 
   <!-- 已登录状态：功能入口 -->
   <view wx:if="{{hasToken}}">
+    <!-- 账户信息卡片 -->
     <view class="card">
-      <view class="card-title">我的账户</view>
+      <view class="card-title">账户信息</view>
       <view class="menu-item" bindtap="goEdit">
         <text>编辑个人资料</text>
         <text class="arrow">›</text>
       </view>
+    </view>
+
+    <!-- 导师卡与预约卡片 -->
+    <view class="card">
+      <view class="card-title">导师卡与预约</view>
       <view class="menu-item" bindtap="goCards">
         <text>我的导师卡</text>
         <text class="arrow">{{ cards.length > 0 ? cards.length + ' 张' : '未绑定' }}</text>
@@ -43,6 +58,7 @@
       </view>
     </view>
 
+    <!-- 系统相关卡片 -->
     <view class="card">
       <view class="card-title">系统</view>
       <view class="menu-item" bindtap="goAdmin">

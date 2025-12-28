@@ -11,7 +11,12 @@ Page({
     },
     hasToken: false,
     userInfo: null,
-    cards: []
+    cards: [],
+    bannerImages: [
+      '/images/1.jpg',
+      '/images/2.jpg',
+      '/images/3.png'
+    ]
   },
 
   onLoad() {
