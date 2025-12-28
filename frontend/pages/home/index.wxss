@@ -1,4 +1,3 @@
-/* filepath: c:\Users\20918\Desktop\renjijiaohu\PassionMentorMatch\frontend\pages\home\index.wxss */
 /* 顶部街舞主题 Hero */
 .hero {
   position: relative;
@@ -6,8 +5,8 @@
   padding: 28rpx 24rpx;
   border-radius: 24rpx;
   background: radial-gradient(circle at 0 0, #f97316 0, transparent 45%),
-              radial-gradient(circle at 100% 100%, #22c55e 0, transparent 40%),
-              linear-gradient(135deg, #020617, #111827);
+  radial-gradient(circle at 100% 100%, #22c55e 0, transparent 40%),
+  linear-gradient(135deg, #020617, #111827);
   box-shadow: 0 18rpx 40rpx rgba(15,23,42,0.55);
   display: flex;
   align-items: center;
@@ -91,5 +90,13 @@
 .rec-time { font-size:24rpx; }
 .section-title { font-size:28rpx; font-weight:600; margin-bottom:8rpx; }
 .link { color: #07c160; text-decoration: underline; }
+
+.btn,
+button.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* ...已有样式... */
+}
 
 
