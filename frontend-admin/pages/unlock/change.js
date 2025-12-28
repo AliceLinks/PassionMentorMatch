@@ -18,7 +18,7 @@ Page({
       this.setData({ error: '两次输入的新密码不一致', success: '' }); return;
     }
     const request = require('../../utils/request.js');
-    request.post('/admin/change-password', { old_password: oldPwd, new_password: newPwd })
+    request.post('/api/admin/change-password', { old_password: oldPwd, new_password: newPwd })
       .then(() => {
         this.setData({ error: '', success: '密码修改成功！' });
         setTimeout(() => { wx.navigateBack(); }, 1200);

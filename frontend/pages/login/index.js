@@ -1,5 +1,5 @@
 // pages/login/index.js
-  // pages/login/index.js
+// pages/login/index.js
 const app = getApp();
 const api = require('../../utils/request.js');
 
@@ -30,7 +30,7 @@ Page({
       return;
     }
     this.setData({ loading: true });
-    api.post('/user/login', { phone, password })
+    api.post('/api/user/login', { phone, password })
       .then(res => {
         if (res && res.token) {
           wx.setStorageSync('token', res.token);
@@ -44,7 +44,7 @@ Page({
   },
   afterLogin() {
     // 拉取用户信息并返回
-    api.get('/user/profile')
+    api.get('/api/user/profile')
       .then(user => {
         wx.setStorageSync('userInfo', user);
         if (app && app.globalData) app.globalData.user = user;

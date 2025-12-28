@@ -11,7 +11,7 @@ Page({
   },
   fetchCards() {
     this.setData({ loading: true });
-    api.get('/user/cards')
+    api.get('/api/user/cards')
       .then(data => this.setData({ cards: data || [] }))
       .finally(() => this.setData({ loading: false }));
   }

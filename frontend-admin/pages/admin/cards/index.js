@@ -115,7 +115,7 @@ Page({
             return;
         }
         this.setData({ loading: true, result: '' });
-        api.post('/admin/cards', {
+        api.post('/api/admin/cards', {
             phone,
             cardType: cardTypeOptions[cardTypeIndex],
             startDate,

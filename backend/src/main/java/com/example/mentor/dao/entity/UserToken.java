@@ -29,5 +29,5 @@ public class UserToken extends BaseDO {
     private String token;
 
     @TableField("expired_at")
-    private Date expireAt;
+    private Date expiredAt;
 }

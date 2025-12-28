@@ -22,18 +22,18 @@ Page({
       .catch(() => null) // 忽略登录异常，仍尝试读取，交由后端返回 401 时跳转登录
       .finally(() => {
         // 读取用户信息与卡片
-        api.get('/user/profile').then(u => {
+        api.get('/api/user/profile').then(u => {
           console.log('[home] /user/profile 返回:', u);
           this.setData({ user: u });
           wx.setStorageSync('userInfo', u);
           console.log('[home] setData user:', u, 'realName:', u && u.realName);
-        }).catch(() => {});
-        api.get('/user/cards').then(cards => this.setData({ cards: cards || [] })).catch(() => {});
+        }).catch(() => { });
+        api.get('/api/user/cards').then(cards => this.setData({ cards: cards || [] })).catch(() => { });
       });
 
     // 拉取本周课程作为推荐
     const monday = this.getWeekStart();
-    api.get('/courses/week', { week_start: monday })
+    api.get('/api/courses/week', { week_start: monday })
       .then(res => {
         const list = (res && res.courses) || [];
         this.setData({
@@ -41,7 +41,7 @@ Page({
           recommend: list.slice(0, 3) // 取前3条做推荐
         });
       })
-      .catch(() => {});
+      .catch(() => { });
   },
   getWeekStart() {
     const now = new Date();
@@ -62,7 +62,7 @@ Page({
       content: '确定预约该课程？',
       success: (r) => {
         if (r.confirm) {
-          api.post('/reservations', { course_id: id })
+          api.post('/api/reservations', { course_id: id })
             .then(() => wx.showToast({ title: '预约成功', icon: 'success' }))
             .catch(err => {
               if (err.code === 403) {

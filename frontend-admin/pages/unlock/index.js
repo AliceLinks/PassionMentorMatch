@@ -10,7 +10,7 @@ Page({
     const val = (this.data.inputValue || '').trim();
     if (!val) { this.setData({ error: '请输入密码' }); return; }
     const request = require('../../utils/request.js');
-    request.post('/admin/login', { password: val })
+    request.post('/api/admin/login', { username: 'admin', password: val })
       .then((data) => {
         const token = data && data.token;
         if (token) {

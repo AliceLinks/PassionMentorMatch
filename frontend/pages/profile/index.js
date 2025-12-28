@@ -27,7 +27,7 @@ Page({
     ensureLogin
       .then(() => {
         // 获取用户信息
-        return api.get('/user/profile');
+        return api.get('/api/user/profile');
       })
       .then(res => {
         console.log('userInfo:', res, res.data);
@@ -39,7 +39,7 @@ Page({
       });
     // 获取导师卡（并行，登录后也能访问）
     ensureLogin
-      .then(() => api.get('/user/cards'))
+      .then(() => api.get('/api/user/cards'))
       .then(res => {
         this.setData({ cards: res || [] });
       })
@@ -56,7 +56,7 @@ Page({
   handleLogin() {
     if (!this.data.userInfo) {
       wx.navigateTo({ url: '/pages/login/index' });
-    } 
+    }
   },
 
   goAdminHome() {

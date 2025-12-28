@@ -1,0 +1,33 @@
+# 微信云托管配置文件
+service:
+  name: mentor-backend
+  version: v1.0.0
+  
+container:
+  dockerfile: Dockerfile
+  port: 8080
+  
+resources:
+  cpu: 1
+  memory: 2Gi
+  instances:
+    min: 1
+    max: 3
+    
+healthCheck:
+  path: /actuator/health
+  port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  
+env:
+  # 在云托管控制台配置以下敏感信息
+  # - DB_URL
+  # - DB_USER
+  # - DB_PASSWORD
+  # - WECHAT_APPID
+  # - WECHAT_SECRET
+  - name: PORT
+    value: "8080"
+  - name: WECHAT_SSL_INSECURE
+    value: "false"

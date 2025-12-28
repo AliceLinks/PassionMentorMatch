@@ -2,10 +2,11 @@ const api = require('./utils/request.js');
 
 App({
   onLaunch() {
-    // 初始化云开发环境
+    // 初始化云开发环境（用于云托管）
     if (wx.cloud) {
       wx.cloud.init({
-        env: 'cloud1-8gzef1rzcda5e9d2'
+        env: 'prod-8glbi5hp12efd72e', // 你的云环境 ID
+        traceUser: true
       });
     }
     // 可在此初始化全局数据或做健康检查

@@ -103,7 +103,7 @@ Page({
   fetchDayCourses(date) {
     if (!date) return;
     this.setData({ loading: true });
-    request.get(`/admin/courses/day`, { date })
+    request.get(`/api/admin/courses/day`, { date })
       .then((resp) => {
         const list = (resp && resp.courses) ? resp.courses : [];
         this.setData({ courses: list });
@@ -137,7 +137,7 @@ Page({
     if (!course) return;
     const filter = this.data.filter || 'all';
     this.setData({ loading: true });
-    request.get(`/admin/courses/${course.id}/reservations`, { checkin_status: filter })
+    request.get(`/api/admin/courses/${course.id}/reservations`, { checkin_status: filter })
       .then((resp) => {
         const items = resp && resp.data ? resp.data : [];
         this.setData({ reservations: items });
@@ -157,7 +157,7 @@ Page({
       wx.showToast({ title: 'reservation id missing', icon: 'none' });
       return;
     }
-    request.post(`/admin/reservations/${id}/checkin`, {})
+    request.post(`/api/admin/reservations/${id}/checkin`, {})
       .then(() => {
         wx.showToast({ title: '已签到' });
         this.fetchReservations();
@@ -176,7 +176,7 @@ Page({
       wx.showToast({ title: 'reservation id missing', icon: 'none' });
       return;
     }
-    request.post(`/admin/reservations/${id}/uncheckin`, {})
+    request.post(`/api/admin/reservations/${id}/uncheckin`, {})
       .then(() => {
         wx.showToast({ title: '已取消签到' });
         this.fetchReservations();

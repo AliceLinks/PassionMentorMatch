@@ -51,10 +51,10 @@ Page({
       realName: this.data.realName || null,
       phone: this.data.phone || null
     };
-    api.put('/user/profile', payload)
+    api.put('/api/user/profile', payload)
       .then(() => {
         // 保存成功后，重新拉取最新用户信息
-        return api.get('/user/profile');
+        return api.get('/api/user/profile');
       })
       .then(user => {
         wx.setStorageSync('userInfo', user);

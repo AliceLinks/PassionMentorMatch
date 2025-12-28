@@ -31,7 +31,7 @@ Page({
       return;
     }
     this.setData({ loading: true });
-    api.post('/user/register', {
+    api.post('/api/user/register', {
       phone,
       password,
       realName,

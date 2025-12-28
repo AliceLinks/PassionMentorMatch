@@ -12,11 +12,11 @@ Page({
   onShow() {
     this.fetchList(true);
   },
-  fetchList(reset=false) {
+  fetchList(reset = false) {
     if (this.data.loading) return;
     const page = reset ? 1 : this.data.page;
     this.setData({ loading: true });
-    api.get('/reservations/my', { page, page_size: this.data.page_size })
+    api.get('/api/reservations/my', { page, page_size: this.data.page_size })
       .then(res => {
         const items = (res && res.data) || [];
         const meta = (res && res.meta) || {};
@@ -35,7 +35,7 @@ Page({
       content: '确定要取消吗？',
       success: (r) => {
         if (r.confirm) {
-          api.del(`/reservations/${id}`).then(() => {
+          api.del(`/api/reservations/${id}`).then(() => {
             wx.showToast({ title: '已取消' });
             this.fetchList(true);
           });

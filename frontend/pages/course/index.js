@@ -26,16 +26,16 @@ Page({
     const day = now.getDay() || 7; // 周日为0，改为7
     const monday = new Date(now);
     monday.setDate(now.getDate() - day + 1);
-    
+
     const weekStart = this.formatDate(monday);
-    
+
     // 生成周一到周日的显示数据
     const displayDates = [];
-    for(let i=0; i<7; i++) {
+    for (let i = 0; i < 7; i++) {
       const d = new Date(monday);
       d.setDate(monday.getDate() + i);
       displayDates.push({
-        weekDay: ['日','一','二','三','四','五','六'][d.getDay()],
+        weekDay: ['日', '一', '二', '三', '四', '五', '六'][d.getDay()],
         date: d.getDate(),
         fullDate: this.formatDate(d)
       });
@@ -73,11 +73,11 @@ Page({
 
   fetchCourses() {
     this.setData({ loading: true });
-    api.get('/courses/week', { week_start: this.data.weekStart })
+    api.get('/api/courses/week', { week_start: this.data.weekStart })
       .then(res => {
         const list = (res.courses || []).map(item => {
           const d = new Date(item.course_date);
-          const wd = ['日','一','二','三','四','五','六'][d.getDay()];
+          const wd = ['日', '一', '二', '三', '四', '五', '六'][d.getDay()];
           // 强制将所有id转为字符串，避免大整数精度丢失
           return { ...item, id: String(item.id), reservation_id: item.reservation_id ? String(item.reservation_id) : undefined, weekday: wd };
         });
@@ -106,7 +106,7 @@ Page({
       content: '确定要预约这节导师课吗？',
       success: (res) => {
         if (res.confirm) {
-          api.post('/reservations', { course_id: courseId })
+          api.post('/api/reservations', { course_id: courseId })
             .then(() => {
               wx.showToast({ title: '预约成功', icon: 'success' });
               this.fetchCourses(); // 刷新状态
@@ -133,7 +133,7 @@ Page({
       content: '确定要取消该课程预约吗？',
       success: (r) => {
         if (r.confirm) {
-          api.del(`/reservations/${reservationId}`)
+          api.del(`/api/reservations/${reservationId}`)
             .then(() => { wx.showToast({ title: '已取消' }); this.fetchCourses(); })
             .catch(() => { wx.showToast({ title: '取消失败', icon: 'none' }); });
         }

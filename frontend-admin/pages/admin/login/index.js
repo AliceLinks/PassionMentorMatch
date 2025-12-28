@@ -6,7 +6,7 @@ Page({
     const { username, password } = this.data;
     if (!username || !password) { wx.showToast({ title: '请输入账号密码', icon: 'none' }); return; }
     const request = require('../../../utils/request.js');
-    request.post('/admin/login', { username, password })
+    request.post('/api/admin/login', { username, password })
       .then((data) => {
         const token = data && data.token;
         if (token) {

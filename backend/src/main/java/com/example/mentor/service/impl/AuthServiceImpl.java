@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
         UserToken userToken = new UserToken();
         userToken.setUserId(user.getId());
         userToken.setToken(token);
-        userToken.setExpireAt(Date.from(Instant.now().plus(7, ChronoUnit.DAYS)));
+        userToken.setExpiredAt(Date.from(Instant.now().plus(7, ChronoUnit.DAYS)));
         userTokenMapper.insert(userToken);
         return token;
     }
@@ -131,7 +131,7 @@ public class AuthServiceImpl implements AuthService {
         UserToken ut = new UserToken();
         ut.setUserId(user.getId());
         ut.setToken(token);
-        ut.setExpireAt(expireAt);
+        ut.setExpiredAt(expireAt);
         userTokenMapper.insert(ut);
 
         return token;
@@ -143,7 +143,7 @@ public class AuthServiceImpl implements AuthService {
             throw new IllegalArgumentException("未提供token");
         }
         UserToken ut = userTokenMapper.selectOne(new LambdaQueryWrapper<UserToken>().eq(UserToken::getToken, token));
-        if (ut == null || ut.getExpireAt().before(new Date())) {
+        if (ut == null || ut.getExpiredAt().before(new Date())) {
             throw new RuntimeException("登录失效");
         }
         return userMapper.selectById(ut.getUserId());

@@ -1,16 +1,16 @@
 const app = getApp();
 const api = require('../../../utils/request.js');
 Page({
-  data: { date:'', start:'', end:'', teacher:'', dance:'', capacity:'', items:[] },
-  onDate(e){ this.setData({ date: e.detail.value }); },
-  onStart(e){ this.setData({ start: e.detail.value }); },
-  onEnd(e){ this.setData({ end: e.detail.value }); },
-  onDatePick(e){ this.setData({ date: e.detail.value }); },
-  onStartPick(e){ this.setData({ start: e.detail.value }); },
-  onEndPick(e){ this.setData({ end: e.detail.value }); },
-  onTeacher(e){ this.setData({ teacher: e.detail.value }); },
-  onDance(e){ this.setData({ dance: e.detail.value }); },
-  onCapacity(e){ this.setData({ capacity: e.detail.value }); },
+  data: { date: '', start: '', end: '', teacher: '', dance: '', capacity: '', items: [] },
+  onDate(e) { this.setData({ date: e.detail.value }); },
+  onStart(e) { this.setData({ start: e.detail.value }); },
+  onEnd(e) { this.setData({ end: e.detail.value }); },
+  onDatePick(e) { this.setData({ date: e.detail.value }); },
+  onStartPick(e) { this.setData({ start: e.detail.value }); },
+  onEndPick(e) { this.setData({ end: e.detail.value }); },
+  onTeacher(e) { this.setData({ teacher: e.detail.value }); },
+  onDance(e) { this.setData({ dance: e.detail.value }); },
+  onCapacity(e) { this.setData({ capacity: e.detail.value }); },
   /**
    * 校验单个课程项的表单字段
    */
@@ -45,7 +45,7 @@ Page({
 
     return { valid: true };
   },
-  addItem(){
+  addItem() {
     console.log('addItem 调用', this.data); // 调试输出
     const { date, start, end, teacher, dance, capacity } = this.data;
     const item = {
@@ -63,16 +63,16 @@ Page({
     }
     const items = this.data.items.slice();
     items.push(item);
-    this.setData({ items, date:'', start:'', end:'', teacher:'', dance:'', capacity:'' });
+    this.setData({ items, date: '', start: '', end: '', teacher: '', dance: '', capacity: '' });
   },
-  removeItem(e){
+  removeItem(e) {
     const idx = e.currentTarget.dataset.index;
     const items = this.data.items.slice();
-    items.splice(idx,1);
+    items.splice(idx, 1);
     this.setData({ items });
   },
-  onSubmit(){
-    if(!this.data.items.length){ wx.showToast({ title:'请先添加课程', icon:'none' }); return; }
+  onSubmit() {
+    if (!this.data.items.length) { wx.showToast({ title: '请先添加课程', icon: 'none' }); return; }
 
     // 对所有项做提交前校验
     for (let i = 0; i < this.data.items.length; i++) {
@@ -83,36 +83,36 @@ Page({
       }
     }
 
-    api.post('/courses/batch', this.data.items)
+    api.post('/api/courses/batch', this.data.items)
       .then(res => {
         const code = res.code;
         const message = res.message;
         const payload = res.data;
         if (code === 200 || message === 'success') {
-          const successCount = payload?.success ?? 0;
-          const failCount = payload?.failed ?? 0;
+          const successCount = (payload && typeof payload.success !== 'undefined' && payload.success !== null) ? payload.success : 0;
+          const failCount = (payload && typeof payload.failed !== 'undefined' && payload.failed !== null) ? payload.failed : 0;
           if (successCount || failCount) {
-            wx.showToast({ title: `成功:${successCount} 失败:${failCount}，请刷新课程列表查看`, icon:'success' });
+            wx.showToast({ title: `成功:${successCount} 失败:${failCount}，请刷新课程列表查看`, icon: 'success' });
           } else {
-            wx.showToast({ title: '发布成功，请刷新课程列表查看', icon:'success' });
+            wx.showToast({ title: '发布成功，请刷新课程列表查看', icon: 'success' });
           }
           this.setData({ items: [] });
           return;
         }
         if (typeof code === 'undefined') {
-          wx.showToast({ title: '发布成功，请刷新课程列表查看', icon:'success' });
+          wx.showToast({ title: '发布成功，请刷新课程列表查看', icon: 'success' });
           this.setData({ items: [] });
           return;
         }
         if (code === 0) {
           if (payload && (typeof payload.success !== 'undefined' || typeof payload.failed !== 'undefined')) {
-            const successCount = payload.success ?? 0;
-            const failCount = payload.failed ?? 0;
-            wx.showToast({ title: `成功:${successCount} 失败:${failCount}，请刷新课程列表查看`, icon:'success' });
+            const successCount = (typeof payload.success !== 'undefined' && payload.success !== null) ? payload.success : 0;
+            const failCount = (typeof payload.failed !== 'undefined' && payload.failed !== null) ? payload.failed : 0;
+            wx.showToast({ title: `成功:${successCount} 失败:${failCount}，请刷新课程列表查看`, icon: 'success' });
           } else if (Array.isArray(payload)) {
-            wx.showToast({ title: `成功:${payload.length}，请刷新课程列表查看`, icon:'success' });
+            wx.showToast({ title: `成功:${payload.length}，请刷新课程列表查看`, icon: 'success' });
           } else {
-            wx.showToast({ title: '发布成功，请刷新课程列表查看', icon:'success' });
+            wx.showToast({ title: '发布成功，请刷新课程列表查看', icon: 'success' });
           }
           this.setData({ items: [] });
         } else {
@@ -121,22 +121,22 @@ Page({
             wx.showToast({ title: '发布成功，请刷新课程列表查看', icon: 'success' });
             this.setData({ items: [] });
           } else {
-            wx.showToast({ title: msg, icon:'none' });
+            wx.showToast({ title: msg, icon: 'none' });
           }
         }
       })
-      .catch(() => { wx.showToast({ title:'网络错误', icon:'none' }); });
+      .catch(() => { wx.showToast({ title: '网络错误', icon: 'none' }); });
   }
-      ,
-      cancelCourse(e){
-        const id = e.currentTarget.dataset.id;
-        if(!id){ wx.showToast({ title:'缺少课程ID', icon:'none' }); return; }
-        api.post(`/courses/${id}/cancel`, {})
-          .then(res => {
-            wx.showToast({ title:'已取消', icon:'success' });
-            const items = (this.data.items||[]).map(x=>{ if(x.id===id){ x.status='cancelled'; } return x; });
-            this.setData({ items });
-          })
-          .catch(()=> wx.showToast({ title:'网络错误', icon:'none' }));
-      }
+  ,
+  cancelCourse(e) {
+    const id = e.currentTarget.dataset.id;
+    if (!id) { wx.showToast({ title: '缺少课程ID', icon: 'none' }); return; }
+    api.post(`/api/courses/${id}/cancel`, {})
+      .then(res => {
+        wx.showToast({ title: '已取消', icon: 'success' });
+        const items = (this.data.items || []).map(x => { if (x.id === id) { x.status = 'cancelled'; } return x; });
+        this.setData({ items });
+      })
+      .catch(() => wx.showToast({ title: '网络错误', icon: 'none' }));
+  }
 });

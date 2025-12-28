@@ -13,7 +13,7 @@ Page({
     console.log('getList 调用'); // 新增调试输出
     this.setData({ loading: true });
     const params = { week_start: this.getWeekStart() };
-    api.get('/courses/week', params)
+    api.get('/api/courses/week', params)
       .then(res => {
         console.log('getList 返回:', res); // 新增调试输出
         this.setData({ courses: res.courses || [] }); // 修正为 res.courses
@@ -47,7 +47,7 @@ Page({
       content: '将取消课程并批量取消预约，继续？',
       success: (r) => {
         if (!r.confirm) return;
-        api.post(`/courses/${id}/cancel`, {})
+        api.post(`/api/courses/${id}/cancel`, {})
           .then(res => {
             console.log('取消课程成功:', res);
             wx.showToast({ title: '已取消', icon: 'success' });
@@ -60,14 +60,14 @@ Page({
       }
     });
   },
-  onEdit(e){
+  onEdit(e) {
     let id = e.currentTarget.dataset.id;
     id = String(id);
     wx.navigateTo({ url: `/pages/admin/manageEdit/index?id=${id}` });
   },
-  onRoster(e){
+  onRoster(e) {
     let id = e.currentTarget.dataset.id;
-    if(!id){ wx.showToast({ title:'缺少课程ID', icon:'none' }); return; }
+    if (!id) { wx.showToast({ title: '缺少课程ID', icon: 'none' }); return; }
     id = String(id);
     wx.navigateTo({ url: `/pages/admin/roster/index?courseId=${id}` });
   }
