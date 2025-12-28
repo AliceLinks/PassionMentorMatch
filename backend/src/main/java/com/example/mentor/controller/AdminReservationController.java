@@ -1,4 +1,3 @@
-
 package com.example.mentor.controller;
 
 import com.example.mentor.dao.entity.Reservation;
@@ -101,7 +100,19 @@ public class AdminReservationController {
                 continue;
             if (c.getCourseDate() == null)
                 continue;
-            if (c.getCourseDate().before(today))
+            // 组合课程日期和开始时间
+            Date courseStartDateTime = null;
+            if (c.getCourseDate() != null && c.getStartTime() != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(c.getCourseDate());
+                Calendar tcal = Calendar.getInstance();
+                tcal.setTime(c.getStartTime());
+                cal.set(Calendar.HOUR_OF_DAY, tcal.get(Calendar.HOUR_OF_DAY));
+                cal.set(Calendar.MINUTE, tcal.get(Calendar.MINUTE));
+                cal.set(Calendar.SECOND, tcal.get(Calendar.SECOND));
+                courseStartDateTime = cal.getTime();
+            }
+            if (courseStartDateTime != null && courseStartDateTime.before(today))
                 continue;
             if ("cancelled".equalsIgnoreCase(c.getStatus()))
                 continue;
