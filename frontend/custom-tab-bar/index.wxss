@@ -3,11 +3,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 100rpx;
+  height: 120rpx;
   display: flex;
-  background: #fff;
-  border-top: 1rpx solid #e5e7eb;
-  padding: 6rpx 8rpx;
+  background: linear-gradient(90deg, #18181b 0%, #23272f 100%);
+  border-top: none;
+  box-shadow: 0 -8rpx 32rpx rgba(255,120,40,0.10);
+  padding: 10rpx 16rpx;
+  z-index: 999;
 }
 .tab-item {
   flex: 1;
@@ -15,18 +17,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #666;
-  border-radius: 12rpx;
+  color: #bdbdbd;
+  font-size: 28rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  transition: color 0.2s;
 }
 .tab-item.active {
-  color: #07c160;
-  background: #e6fff2;
-  font-weight: 600;
+  color: #ff6a00;
+  text-shadow: 0 4rpx 12rpx rgba(255,120,40,0.18);
 }
 .icon {
-  font-size: 36rpx;
+  width: 64rpx;
+  height: 64rpx;
+  margin-bottom: 6rpx;
+  filter: drop-shadow(0 2rpx 8rpx rgba(255,120,40,0.10));
+  transition: transform 0.2s;
+}
+.tab-item.active .icon {
+  transform: scale(1.12);
+  filter: drop-shadow(0 6rpx 18rpx rgba(255,120,40,0.18));
 }
 .label {
-  font-size: 22rpx;
-  margin-top: 6rpx;
+  font-size: 28rpx;
+  margin-top: 8rpx;
+  font-family: 'DIN', 'Arial', sans-serif;
+  letter-spacing: 2rpx;
 }

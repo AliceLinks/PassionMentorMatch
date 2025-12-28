@@ -10,7 +10,7 @@
         <view class="time">{{item.course.course_date}} {{item.course.start_time}}</view>
         <view class="actions" wx:if="{{item.status === 'reserved'}}">
             <view class="badge-reserved">已预约</view>
-            <button class="btn btn-cancel" size="mini" bindtap="onCancel" data-id="{{item.id}}">取消预约</button>
+            <button class="btn btn-cancel" size="mini" bindtap="onCancel" data-id="{{item.id}}">取消</button>
         </view>
       </view>
     </view>

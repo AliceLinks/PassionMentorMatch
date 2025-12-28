@@ -1,7 +1,7 @@
 <view wx:if="{{visible}}" class="tabbar" >
   <block wx:for="{{list}}" wx:key="pagePath">
-    <view class="tab-item {{selected==index?'active':''}}" data-index="{{index}}" bindtap="onSwitch">
-      <view class="icon">{{item.icon}}</view>
+    <view class="tab-item {{selected === index ? 'active' : ''}}" bindtap="onSwitch" data-index="{{index}}">
+      <image class="icon" src="{{selected === index ? item.selectedIcon : item.icon}}" mode="aspectFit"/>
       <view class="label">{{item.text}}</view>
     </view>
   </block>
