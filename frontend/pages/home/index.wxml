@@ -57,7 +57,7 @@
   <view class="card">
     <view class="card-body">
       <view class="section-title">路线图</view>
-      <image wx:if="{{roadmapImg}}" src="{{roadmapImg}}" mode="widthFix" style="width:100%;margin:12rpx 0;" />
+      <button class="btn" wx:if="{{roadmapImg}}" bindtap="showRoadmapImg">查看路线图</button>
       <view wx:if="{{!roadmapImg}}" class="muted">暂无路线图</view>
     </view>
   </view>

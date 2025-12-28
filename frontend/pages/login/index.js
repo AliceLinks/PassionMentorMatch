@@ -5,7 +5,9 @@ Page({
   data: {
     loading: false,
     phone: '',
-    password: ''
+    password: '',
+    // 使用同一 Logo 源，可替换为上传后的 URL
+    logoUrl: wx.getStorageSync('APP_LOGO') || 'http://127.0.0.1:8080/upload/logo.png'
   },
   onShow() {
     // 已有 token 则跳过
@@ -14,12 +16,9 @@ Page({
       this.afterLogin();
     }
   },
-  onPhoneInput(e) {
-    this.setData({ phone: e.detail.value });
-  },
-  onPasswordInput(e) {
-    this.setData({ password: e.detail.value });
-  },
+  onPhoneInput(e) { this.setData({ phone: e.detail.value }); },
+  onPasswordInput(e) { this.setData({ password: e.detail.value }); },
+
   onLogin() {
     if (this.data.loading) return;
     const { phone, password } = this.data;
@@ -32,9 +31,11 @@ Page({
       .then(res => {
         if (res && res.token) {
           wx.setStorageSync('token', res.token);
-          this.afterLogin();
+          wx.setStorageSync('userInfo', res.user || {});
+          wx.showToast({ title: '登录成功', icon: 'success' });
+          wx.switchTab({ url: '/pages/home/index' });
         } else {
-          wx.showToast({ title: '登录失败', icon: 'none' });
+          wx.showToast({ title: res && res.message ? res.message : '登录失败', icon: 'none' });
         }
       })
       .catch(() => wx.showToast({ title: '登录失败', icon: 'none' }))
@@ -58,4 +59,4 @@ Page({
   onRegister() {
     wx.navigateTo({ url: '/pages/register/index' });
   }
-})
+});

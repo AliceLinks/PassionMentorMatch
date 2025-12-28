@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS cards;
 DROP TABLE IF EXISTS admins;
 DROP TABLE IF EXISTS user_token;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS simple_config;
 
 -- 用户表（微信用户）
 CREATE TABLE users (
@@ -129,6 +130,15 @@ CREATE TABLE IF NOT EXISTS operation_logs (
   detail JSON,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 配置表（简单键值对）
+CREATE TABLE `simple_config` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `config_key` VARCHAR(64) NOT NULL UNIQUE,
+  `config_value` TEXT,
+  `description` VARCHAR(255),
+  `update_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 视图或约束说明：
 -- 1) 有效卡校验：后端逻辑中检查 status='active' 且 (card_type='lifetime' 或 start_date<=today<=end_date)。

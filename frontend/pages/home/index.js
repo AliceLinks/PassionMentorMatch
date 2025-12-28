@@ -93,5 +93,12 @@ Page({
     wx.navigateTo({
       url: `/pages/webview/index?url=${url}`
     });
-  }
+  },
+  showRoadmapImg() {
+    if (!this.data.roadmapImg) return;
+    wx.previewImage({
+      urls: [this.data.roadmapImg],
+      current: this.data.roadmapImg
+    });
+  },
 });

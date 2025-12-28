@@ -56,7 +56,8 @@ Page({
         userInfo: res,
         user: {
           ...this.data.user,
-          avatar: res.avatar || this.data.user.avatar,
+          // 优先实名头像
+          avatar: res.real_name_image || this.data.user.avatar,
           nickname: res.nickname || this.data.user.nickname
         }
       });
@@ -64,7 +65,12 @@ Page({
 
     // 获取导师卡
     api.get('/user/cards').then(res => {
-      this.setData({ cards: res || [] });
+      // 若有实名头像，优先展示
+      let avatar = this.data.user.avatar;
+      if (res && res.length > 0 && res[0].real_name_image) {
+        avatar = res[0].real_name_image;
+      }
+      this.setData({ cards: res || [], 'user.avatar': avatar });
     });
   },
 

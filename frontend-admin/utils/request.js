@@ -1,6 +1,6 @@
 // 生产/联调：指向云托管域名；如需本地联调改回 http://127.0.0.1:8080/api
 // 优先使用本地存储的 BASE_URL，便于在开发者工具中快速切换服务域名
-let BASE_URL = 'http://127.0.0.1:8080/api';
+let BASE_URL = 'http://10.6.70.199:8080/api';
 try {
   const stored = wx.getStorageSync('BASE_URL');
   if (stored && typeof stored === 'string' && stored.trim().length > 0) {

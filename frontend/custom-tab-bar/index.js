@@ -33,6 +33,16 @@ Component({
       }
       const currentPage = pages[pages.length - 1];
       let route = currentPage.route; // 例如 "pages/home/index"
+
+      /* ========= 关键点 1：admin 页面直接隐藏 tabBar ========= */
+      if (route.startsWith('pages/admin/')) {
+        this.setData({ visible: false });
+        return;
+      }
+
+      /* ========= 关键点 2：用户端页面才显示 tabBar ========= */
+      this.setData({ visible: true });
+      
       const list = this.data.list;
       console.log('updateSelected 调试 route:', route);
       console.log('updateSelected 调试 list:', list);
