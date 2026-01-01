@@ -1,0 +1,5 @@
+.container { padding: 24rpx; }
+.section { background: #fff; border-radius: 16rpx; padding: 20rpx; margin-bottom: 24rpx; }
+.section-title { font-size: 30rpx; font-weight: 600; margin-bottom: 12rpx; }
+.input { border: 1rpx solid #eee; border-radius: 8rpx; padding: 12rpx; font-size: 28rpx; width: 100%; margin-bottom: 8rpx; }
+button { width: 100%; }

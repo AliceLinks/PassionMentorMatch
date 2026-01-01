@@ -1,0 +1,81 @@
+<view class="page">
+  <!-- 头部用户卡片 -->
+  <view class="profile-header">
+    <view class="profile-swiper">
+      <image class="banner-img" src="/images/profile-banner.png" mode="aspectFill"/>
+    </view>
+    <view class="profile-info">
+      <image class="avatar" src="{{user.avatar}}" mode="aspectFill" />
+      <view class="info">
+        <view class="name" wx:if="{{userInfo && userInfo.realName}}">
+          姓名：{{ userInfo.realName }}
+        </view>
+        <view class="sub" wx:if="{{userInfo && userInfo.phone}}">
+          手机号：{{ userInfo.phone }}
+        </view>
+        <view class="sub" wx:else>
+          欢迎来到 Passion 导师课系统
+        </view>
+        <view class="status" wx:if="{{hasToken}}">已登录</view>
+        <view class="status guest" wx:else>未登录</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未登录状态：提示登录 -->
+  <view class="card" wx:if="{{!hasToken}}">
+    <view class="card-title">登录后可使用完整功能</view>
+    <view class="card-desc">包括导师卡查看、课程预约记录等</view>
+    <button class="primary-btn" bindtap="handleLogin">手机号登录 / 注册</button>
+  </view>
+
+  <!-- 已登录状态：功能入口 -->
+  <view wx:if="{{hasToken}}">
+
+    <!-- 账户信息卡片 -->
+    <view class="card">
+      <view class="card-title">账户信息</view>
+      <view class="menu-item" bindtap="goEdit">
+        <text>编辑个人资料</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 导师卡与预约卡片 -->
+    <view class="card">
+      <view class="card-title">导师卡与预约</view>
+      <!-- 导师卡可视化，支持多卡 -->
+      <block wx:if="{{cards && cards.length > 0}}">
+        <block wx:for="{{cards}}" wx:key="cardNo">
+          <view class="mentor-card-visual {{item.status !== 'active' ? 'inactive' : ''}}">
+            <view class="mentor-title">
+              {{ item.card_type === 'semester' ? '学期卡' : (item.card_type === 'annual' ? '年卡' : '终身卡') }}
+            </view>
+            <view class="mentor-id">NO. {{item.card_number}}</view>
+            <view class="mentor-meta">有效期：{{item.start_date}} 至 {{item.end_date}}</view>
+            <view class="mentor-badge">{{item.status === 'active' ? '生效中' : '已失效'}}</view>
+          </view>
+        </block>
+      </block>
+      <block wx:else>
+        <view class="mentor-card-visual inactive">
+          <view class="mentor-title">导师卡</view>
+          <view class="mentor-meta">暂无导师卡</view>
+        </view>
+      </block>
+      <view class="menu-item" bindtap="goReservations">
+        <text>我的预约</text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 系统相关卡片 -->
+    <view class="card">
+      <view class="menu-item logout" bindtap="logout">
+        <text>退出登录</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+

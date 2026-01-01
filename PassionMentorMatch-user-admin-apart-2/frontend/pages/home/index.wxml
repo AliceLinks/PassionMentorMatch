@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 顶部轮播图 -->
+  <view class="hero">
+    <view class="hero-right">
+      <view class="hero-badge">PASSION STREET DANCE</view>
+      <view class="hero-title">Passion街舞社课程预约</view>
+      <view class="hero-sub">Beat the floor, not the queue.</view>
+    </view>
+  </view>
+  <swiper class="home-swiper" indicator-dots="true" autoplay="true" circular="true" interval="4000">
+    <block wx:for="{{bannerImages}}" wx:key="url">
+      <swiper-item>
+        <image class="banner-img" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="grid">
+    <view class="card">
+      <view class="card-body">
+        <view class="row">
+          <text class="label">我的状态</text>
+          <text class="value">{{user.realName || '游客'}}</text>
+        </view>
+        <view class="row-sub muted">卡片：{{(cards && cards.length) || 0}} 张 · 本周课程：{{stats.courseCount}} 门</view>
+        <view class="actions">
+          <button class="btn" bindtap="goCourse">立即约课</button>
+          <button class="btn-secondary" bindtap="goProfile">我的中心</button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课程介绍与路线图并排展示 -->
+  <view class="row-cards">
+    <view class="card card-half">
+      <view class="card-body">
+        <view class="section-title">课程介绍</view>
+        <view wx:if="{{courseIntro}}">
+          <button class="link" bindtap="goCourseIntro">点击查看课程介绍</button>
+        </view>
+        <view wx:else class="muted">暂无课程介绍</view>
+      </view>
+    </view>
+    <view class="card card-half">
+      <view class="card-body">
+        <view class="section-title">路线图</view>
+        <button class="btn" wx:if="{{roadmapImg}}" bindtap="showRoadmapImg">查看路线图</button>
+        <view wx:else class="muted">暂无路线图</view>
+      </view>
+    </view>
+  </view>
+  
+</view>

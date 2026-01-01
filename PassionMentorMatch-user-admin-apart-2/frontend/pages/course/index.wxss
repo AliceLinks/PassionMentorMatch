@@ -1,0 +1,186 @@
+.empty-center {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 320rpx;
+	margin: 48rpx 0 32rpx 0;
+	padding: 32rpx 0;
+}
+.empty-logo {
+	width: 700rpx;
+	height: 700rpx;
+	margin-bottom: 24rpx;
+	opacity: 0.98;
+	filter: drop-shadow(0 4rpx 12rpx rgba(249,115,22,0.10));
+}
+.empty-text {
+	font-size: 32rpx;
+	color: #ff7a45;
+	font-weight: 800;
+	letter-spacing: 2rpx;
+	margin-top: 8rpx;
+	text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.10);
+}
+/* 课程卡片预约/取消按钮美化 */
+.btn-primary {
+	background: linear-gradient(90deg, #07c160 0%, #22d3ee 100%);
+	color: #fff;
+	border: none;
+	border-radius: 999rpx;
+	font-size: 26rpx;
+	font-weight: 700;
+	padding: 0 36rpx;
+	height: 54rpx;
+	line-height: 54rpx;
+	box-shadow: 0 2rpx 8rpx rgba(34,211,238,0.10);
+	margin: 0 0 6rpx 0;
+	transition: background 0.2s;
+	letter-spacing: 1rpx;
+}
+.btn-primary:active {
+	background: linear-gradient(90deg, #22d3ee 0%, #07c160 100%);
+}
+.btn-cancel {
+	background: linear-gradient(90deg, #ff7a45 0%, #ff4d4f 100%);
+	color: #fff;
+	border: none;
+	border-radius: 999rpx;
+	font-size: 26rpx;
+	font-weight: 700;
+	padding: 0 36rpx;
+	height: 54rpx;
+	line-height: 54rpx;
+	box-shadow: 0 2rpx 8rpx rgba(255,77,79,0.10);
+	margin: 0 0 6rpx 0;
+	transition: background 0.2s;
+	letter-spacing: 1rpx;
+}
+.btn-cancel:active {
+	background: linear-gradient(90deg, #f97316 0%, #ff7a45 100%);
+}
+.btn-disabled {
+	background: #c8c8c8;
+	color: #fff;
+	border-radius: 999rpx;
+	font-size: 26rpx;
+	font-weight: 700;
+	padding: 0 36rpx;
+	height: 54rpx;
+	line-height: 54rpx;
+	opacity: 0.7;
+	box-shadow: none;
+	margin: 0 0 6rpx 0;
+}
+.badge-reserved {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #22c55e;
+	border-radius: 4px;
+	margin-bottom: 6px;
+}
+.badge-full {
+	display: inline-block;
+	padding: 2px 6px;
+	font-size: 12px;
+	color: #fff;
+	background-color: #8a8a8a;
+	border-radius: 4px;
+	margin-bottom: 6px;
+}
+/* pages/course/index.wxss */
+/* 顶部周历 hero 风格 */
+.week-hero {
+	position: relative;
+	margin-bottom: 20rpx;
+	padding: 28rpx 24rpx 12rpx 24rpx;
+	border-radius: 24rpx;
+	background: radial-gradient(circle at 0 0, #f97316 0, transparent 45%),
+		radial-gradient(circle at 100% 100%, #22c55e 0, transparent 40%),
+		linear-gradient(135deg, #020617, #111827);
+	box-shadow: 0 18rpx 40rpx rgba(15,23,42,0.55);
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	overflow: hidden;
+}
+.week-header {
+	display: flex;
+	justify-content: space-between;
+	padding: 8rpx 0 0 0;
+	background: none;
+}
+.day-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 14.28%;
+	padding: 6rpx 0;
+	border-radius: 12rpx;
+	transition: background 0.2s, border 0.2s;
+}
+.day-item.active {
+	background: rgba(249,115,22,0.12);
+	border: 2rpx solid #f97316;
+}
+.week-day {
+	font-size: 24rpx;
+	color: #f3f4f6;
+	letter-spacing: 1rpx;
+}
+.date-num {
+	font-size: 28rpx;
+	color: #fff;
+	font-weight: 700;
+	text-shadow: 0 2rpx 8rpx rgba(0,0,0,0.18);
+}
+.course-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 12px;
+	margin: 8px 12px;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.card-header {
+	position: absolute;
+	top: -10px;
+	left: 16px;
+	font-size: 12px;
+	color: #888;
+}
+
+/* 顶部导航按钮区域 */
+/* 顶部导航按钮区域美化 */
+.week-nav-top {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 32rpx;
+	padding: 0 0 8rpx 0;
+}
+.nav-btn {
+	background: rgba(255,255,255,0.18);
+	color: #f3f4f6;
+	border-radius: 999rpx;
+	font-weight: 700;
+	border: none;
+	font-size: 26rpx;
+	padding: 0 38rpx;
+	height: 54rpx;
+	line-height: 54rpx;
+	box-shadow: 0 2rpx 8rpx rgba(249,115,22,0.10);
+	transition: background 0.2s;
+	letter-spacing: 2rpx;
+}
+.nav-btn:active {
+	background: rgba(249,115,22,0.25);
+}
+.week-start {
+	font-size: 12px;
+	color: #888;
+}

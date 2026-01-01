@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="card">
+    <view class="card-title">编辑课程信息</view>
+    <view class="field">
+      <text class="label">日期</text>
+      <picker mode="date" value="{{course_date}}" start="{{pickerMinDate}}" bindchange="onDatePick">
+        <view class="picker-value">{{course_date || '请选择日期'}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">开始时间</text>
+      <picker mode="time" value="{{start_time}}" bindchange="onStartPick">
+        <view class="picker-value">{{start_time || '请选择开始时间'}}</view>
+      </picker>
+    </view>
+    <view class="field">
+      <text class="label">结束时间</text>
+      <picker mode="time" value="{{end_time}}" bindchange="onEndPick">
+        <view class="picker-value">{{end_time || '请选择结束时间'}}</view>
+      </picker>
+    </view>
+    <view class="field"><text class="label">老师</text><input class="input" placeholder="教师" value="{{teacher}}" bindinput="onTeacher"/></view>
+    <view class="field"><text class="label">舞种</text><input class="input" placeholder="舞种" value="{{dance_type}}" bindinput="onDance"/></view>
+    <view class="field"><text class="label">容量</text><input class="input" type="number" placeholder="容量" value="{{capacity}}" bindinput="onCapacity"/></view>
+    <view class="field">
+      <text class="label">需要导师卡</text>
+      <switch checked="{{needCard}}" bindchange="onNeedCardChange"/>
+    </view>
+    <button class="primary" bindtap="onSave">保存</button>
+  </view>
+</view>

@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="sticky-header">
+    <view class="title">已发布课程</view>
+    <view class="sub">管理与编辑当周课程</view>
+  </view>
+
+  <block wx:for="{{courses}}" wx:key="id">
+    <view wx:if="{{item.status === 'published'}}" class="card">
+      <view class="card-top">
+        <view class="badge published">已发布</view>
+        <view class="course-title">{{item.dance_type}} · {{item.teacher}}</view>
+      </view>
+      <view class="card-middle">
+        <view class="time">
+          <view class="value">
+            <view>{{item.course_date}}</view>
+            <view>{{item.start_time}}-{{item.end_time}}</view>
+          </view>
+        </view>
+        <view class="stats">
+          <view class="stat"><text class="label">容量</text><text class="value">{{item.capacity}}</text></view>
+          <view class="stat"><text class="label">已约</text><text class="value">{{item.current_participants}}</text></view>
+        </view>
+      </view>
+      <view class="card-actions">
+        <button class="btn btn-warn" size="mini" data-id="{{item.id}}" bindtap="onCancel">取消课程</button>
+        <button class="btn" size="mini" data-id="{{item.id}}" bindtap="onEdit">编辑信息</button>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{!courses.length}}" class="empty">
+    <view class="empty-icon">🗓️</view>
+    <view class="empty-text">暂无已发布课程</view>
+  </view>
+</view>

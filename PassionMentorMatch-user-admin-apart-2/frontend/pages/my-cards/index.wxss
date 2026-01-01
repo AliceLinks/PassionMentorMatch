@@ -1,0 +1,63 @@
+/* 导师卡可视化风格 */
+.mentor-card {
+	position: relative;
+	margin: 24rpx 0 32rpx 0;
+	padding: 32rpx 28rpx 28rpx 28rpx;
+	border-radius: 24rpx;
+	background: radial-gradient(circle at 0 0, #f97316 0, transparent 45%),
+		radial-gradient(circle at 100% 100%, #22c55e 0, transparent 40%),
+		linear-gradient(135deg, #020617, #111827);
+	box-shadow: 0 18rpx 40rpx rgba(15,23,42,0.55);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	overflow: hidden;
+	color: #f9fafb;
+}
+.mentor-card .card-type {
+	font-size: 32rpx;
+	font-weight: 800;
+	color: #fff;
+	margin-bottom: 12rpx;
+	text-shadow: 0 3rpx 8rpx rgba(0,0,0,0.4);
+}
+.mentor-card .card-no {
+	font-size: 24rpx;
+	color: #f97316;
+	margin-bottom: 8rpx;
+}
+.mentor-card .card-date {
+	font-size: 24rpx;
+	color: #e5e7eb;
+	margin-bottom: 4rpx;
+}
+.mentor-card .card-status {
+	display: inline-block;
+	background: rgba(255,255,255,0.12);
+	color: #f97316;
+	border-radius: 999rpx;
+	padding: 4rpx 18rpx;
+	font-size: 22rpx;
+	font-weight: 700;
+	margin-top: 10rpx;
+	border: 1rpx solid rgba(255,255,255,0.18);
+}
+.mentor-card.inactive {
+	opacity: 0.5;
+	filter: grayscale(0.3);
+}
+.section-title {
+	font-size: 30rpx;
+	font-weight: 800;
+	color: #222;
+	margin-bottom: 18rpx;
+	letter-spacing: 1rpx;
+	text-align: center;
+}
+.empty {
+	color: #b0b0b0;
+	font-size: 24rpx;
+	text-align: center;
+	margin-top: 60rpx;
+}
+/* pages/my-cards/index.wxss */

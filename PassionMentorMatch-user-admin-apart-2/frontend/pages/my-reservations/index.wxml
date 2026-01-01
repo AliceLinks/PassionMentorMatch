@@ -1,0 +1,19 @@
+<!--pages/my-reservations/index.wxml-->
+<view class="container">
+  <block wx:for="{{list}}" wx:key="id">
+    <view class="card">
+      <view class="card-body">
+        <view class="row">
+            <text class="course-name">{{item.course.dance_type}} - {{item.course.teacher}}</text>
+            <text class="status {{item.status}}">{{item.status === 'reserved' ? '已预约' : '已取消'}}</text>
+        </view>
+        <view class="time">{{item.course.course_date}} {{item.course.start_time}}</view>
+        <view class="actions" wx:if="{{item.status === 'reserved'}}">
+            <view class="badge-reserved">已预约</view>
+            <button class="btn btn-cancel" size="mini" bindtap="onCancel" data-id="{{item.id}}">取消</button>
+        </view>
+      </view>
+    </view>
+  </block>
+  <view wx:if="{{list.length === 0}}" class="empty">暂无预约记录</view>
+</view>

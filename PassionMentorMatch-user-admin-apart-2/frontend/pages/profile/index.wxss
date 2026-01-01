@@ -1,0 +1,218 @@
+/* 导师卡可视化卡片 */
+.mentor-card-visual {
+  position: relative;
+  margin: 24rpx 0 32rpx 0;
+  padding: 32rpx 28rpx 28rpx 28rpx;
+  border-radius: 24rpx;
+  background: radial-gradient(circle at 0 0, #f97316 0, transparent 45%),
+    radial-gradient(circle at 100% 100%, #22c55e 0, transparent 40%),
+    linear-gradient(135deg, #020617, #111827);
+  box-shadow: 0 18rpx 40rpx rgba(15,23,42,0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  color: #f9fafb;
+}
+.mentor-card-visual .mentor-title {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12rpx;
+  text-shadow: 0 3rpx 8rpx rgba(0,0,0,0.4);
+}
+.mentor-card-visual .mentor-id {
+  font-size: 24rpx;
+  color: #f97316;
+  margin-bottom: 8rpx;
+}
+.mentor-card-visual .mentor-meta {
+  font-size: 24rpx;
+  color: #e5e7eb;
+  margin-bottom: 4rpx;
+}
+.mentor-card-visual .mentor-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  color: #f97316;
+  border-radius: 999rpx;
+  padding: 4rpx 18rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  margin-top: 10rpx;
+  border: 1rpx solid rgba(255,255,255,0.18);
+}
+.card + .card {
+  margin-top: 16rpx;
+}
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+  box-shadow: 0 12rpx 32rpx rgba(0,0,0,0.10);
+}
+
+.profile-swiper {
+  width: 100%;
+  height: 240rpx;
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 20rpx 18rpx 20rpx;
+  background: #18181c;
+  border-bottom-left-radius: 24rpx;
+  border-bottom-right-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.12);
+}
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid #fff;
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.10);
+  margin-right: 24rpx;
+}
+.info {
+  flex: 1;
+  color: #fff;
+}
+.name {
+  font-size: 36rpx;
+  font-weight: 700;
+  margin-bottom: 8rpx;
+}
+.meta { color:#e6fffb; }
+.quick-actions { display:flex;gap:16rpx;margin:16rpx 0; }
+.qa-item { flex:1;background:#fff;border-radius:12rpx;padding:16rpx;display:flex;flex-direction:column;align-items:center;gap:8rpx;box-shadow:0 4rpx 12rpx rgba(0,0,0,0.06); }
+.qa-icon { font-size:40rpx; }
+.qa-text { color:#333; }
+.list-item { display:flex;justify-content:space-between;align-items:center;padding:16rpx;background:#fff;border-radius:12rpx;margin-bottom:12rpx; }
+.muted { color:#666; }
+.more-link { color:#07c160;margin-bottom:16rpx; }
+/* 页面基本样式 */
+.page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  padding: 32rpx 24rpx 40rpx;
+  box-sizing: border-box;
+}
+
+/* 头部用户信息 */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 20rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #ff7a45, #ffbb96);
+  box-shadow: 0 12rpx 32rpx rgba(0, 0, 0, 0.12);
+  margin-bottom: 32rpx;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.9);
+}
+
+.info {
+  margin-left: 24rpx;
+  flex: 1;
+}
+
+.name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6rpx;
+}
+
+.sub {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 4rpx;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 4rpx;
+  padding: 4rpx 16rpx;
+  border-radius: 999rpx;
+  font-size: 22rpx;
+  color: #10b981;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.status.guest {
+  color: #f97316;
+}
+
+/* 卡片与菜单 */
+.card {
+  background: #ffffff;
+  border-radius: 20rpx;
+  padding: 20rpx 20rpx 8rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8rpx;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-bottom: 16rpx;
+}
+
+.menu-item {
+  padding: 18rpx 4rpx;
+  border-bottom: 1rpx solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 26rpx;
+  color: #374151;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item.logout {
+  color: #ef4444;
+}
+
+.arrow {
+  color: #9ca3af;
+  font-size: 28rpx;
+}
+
+/* 主要按钮（未登录时显示） */
+.primary-btn {
+  margin-top: 12rpx;
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 999rpx;
+  background: linear-gradient(135deg, #ff7a45, #ff4d4f);
+  color: #ffffff;
+  font-size: 30rpx;
+  font-weight: 500;
+  border: none;
+}
